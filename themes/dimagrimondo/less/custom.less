@@ -1,0 +1,346 @@
+@import "variables";
+/* less/custom.less */
+
+// ** MEDIA QUERY EXAMPLE **
+// -------------------------
+// @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max){}
+
+
+
+// ** BG COLORS **
+// ---------------
+
+body{
+  background: @gray-dark;
+}
+
+.wrapper-bottom,
+.wrapper-top,
+.wrapper-content{
+  background: #fff;
+}
+
+// ** MAIN CONTAINER **
+// --------------------
+
+// Padding vertical in every page
+.main-container{
+  .padding-t(2);
+  .padding-b(4);
+}
+
+// Scroll home correction
+.front .main-container{
+  .padding-v(0);
+}
+
+// ** LOGO ** //
+// -------------
+.footer .logo img,
+.navbar-header .logo img{
+  /*max-height: 48px;*/
+}
+
+// ** TABS **
+// ----------
+
+.tabs--secondary,
+.tabs--primary{
+  .margin-b(1);
+  text-align: center;
+}
+
+// ** FOOTER2 **
+// ----------
+section.block-footer2
+{
+  .contact-form{
+    .text-max-width{max-width: inherit;}
+    form{
+      text-align: center;
+      padding:0;
+      .form-group{
+        display: inline-block;
+        margin: 10px;
+        input{
+          width:220px;
+          background: rgba(0,0,0,.15);
+          border-color: rgba(0,0,0,.30);
+          color:#ffffff;
+        }
+      }
+      .form-actions{
+        display: inline-block;
+        margin: 10px;
+        button{
+          width:220px;
+          margin:0;
+          background: rgba(255,255,255, .10);
+          border-color: rgba(255,255,255,.50);
+        }
+        button:hover{
+          background: rgba(255,255,255, .20);
+        }
+      }
+    }
+  }
+  hr{
+    border-color: rgba(255,255,255, .20);
+  }
+  ul.menu.nav{
+    text-align: center;
+    li{
+      display:inline-block;
+      a{
+        display:inline-block;
+        color:@gray-light;
+        i{
+          margin-right: 5px;
+        }
+      }
+      a:hover{
+        background: none;
+        color:@gray-lightest;
+      }
+    }
+  }
+}
+
+
+// ** SIMPLE ADMIN **
+// ----------
+.block-simple-admin{
+  background: @gray-lightest;
+  .simple-admin{
+    padding:0;
+  }
+}
+
+// ** DEVEL MENU **
+// ----------
+#block-menu-devel{
+  ul.menu-devel{
+    margin:0;
+    padding:0;
+    li{
+      a
+      {
+        font-size:9px;
+        padding:1px 3px;
+        border-color:#565656;
+        background: @gray-dark;
+        color:#949494;
+      }
+      a:hover
+      {
+        border-color:#767676;
+        background:#555555;
+        color:#c4c4c4;
+      }
+    }
+  }
+}
+
+// ** SCROLL HOME **
+// --------------------------
+.wrapper-scroll-home{
+  a.btn.readmore{
+    color: @gray-dark;
+  }
+}
+
+/* CHI SIAMO */
+.wrapper-scroll-home.wrapper-scroll-home-node-8
+{
+  border-bottom: 1px solid @gray-lightest;
+  a.btn.readmore:hover{background: @jp-red; color: white;}
+  /*background: @jp-red;*/
+  /*.container{background: rgba(255,255,255,0.1);}*/
+  .field-name-body h4{color: rgba(0,0,0,0.3);}
+}
+
+/*COSA FACCIAMO */
+.wrapper-scroll-home.wrapper-scroll-home-node-5
+{
+  border-bottom: 1px solid @gray-lightest;
+  a.btn.readmore:hover{background:  @jp-green; color: white;}
+  background: @jp-green;
+  /*.container{background: rgba(255,255,255,0.1);}*/
+  h2 span.colored{color:white !important;}
+  .field-name-body h4{color: rgba(255,255,255,0.3);}
+}
+
+/* CONTATTACI */
+.wrapper-scroll-home.wrapper-scroll-home-node-1
+{
+  border-bottom: 1px solid @gray-lightest;
+  a.btn.readmore:hover{background: @jp-violet; color: white;}
+  /*background: @jp-violet;*/
+  /*.container{background: rgba(255,255,255,0.1);}*/
+  .field-name-body h4{color: rgba(0,0,0,0.3);}
+}
+
+/* BLOG */
+.wrapper-scroll-home.wrapper-scroll-home-node-7
+{
+  border-bottom: 1px solid @gray-lightest;
+  background: @jp-orange;
+  /*.container{background: rgba(255,255,255,0.1);}*/
+  h2 span.colored{color:white !important;}
+  .field-name-body h4{color: rgba(255,255,255,0.3);}
+  ul.links li.node-readmore a{color: rgba(255,255,255,0.6);}
+
+}
+
+.wrapper-scroll-home{
+  .scroll-home-node{
+    padding-bottom: 50px;
+  }
+  .field-name-field-title-emotional{
+    h2{
+      font-size:30px;
+    }
+  }
+  .field-name-body{
+    h4{
+      color: @gray-lighter;
+      font-weight: normal;
+      font-size: 18px;
+    }
+  }
+  a.readmore{
+    margin-top:15px;
+  }
+}
+
+
+// ** HOME PARALLAX-COVER **
+// ---------------------------
+.block-parallax-cover{
+  .wrapper-over-parallax{
+    .parallax-content{
+      padding: 200px 0;
+      text-align: right;
+      h4{
+        font-size: 48px;
+      }
+      h5{
+        font-size: 40px;
+      }
+    }
+  }
+}
+
+// ** COLORED EMOTIONAL TITLES **
+// ---------------------------
+.colored{
+  color: @brand-primary;
+}
+
+#node-8 .colored{
+  color: @brand-info;
+}
+
+
+// ** NODE HIERARCHY CHILDREN LISTING **
+// -------------------------------
+.nhc-children.row
+{
+  .node.node-resource-file{
+    min-height:180px;
+  }
+}
+
+// ** RESOURCE FOLDER **
+// -------------------------------
+.node-resource-folder.node-child
+{
+  .resource-folder{
+    text-align: center;
+    a{
+      .fa.bigfolder{
+        font-size: 128px;
+        color: @jp-brown-light;
+        position: relative;
+        .field.field-name-field-icon{
+          position: absolute;
+          font-size: 48px;
+          bottom: 32px;
+          right: 10px;
+          width: 64px;
+          text-align: center;
+          .fa{
+            color: white;
+          }
+        }
+        .children-count{
+          position: absolute;
+          font-size: 14px;
+          font-family: monospace;
+          top: 12px;
+          left: 0;
+          width: 55px;
+          text-align: center;
+          color: rgba(255,255,255,0.6);
+        }
+      }
+      .field.field-name-title-field{
+        h3{
+          margin-top:0;
+          color: @jp-brown-dark;
+          font-size: 16px;
+        }
+      }
+    }
+    /* FOLDER COLORS */
+    &.color_1 .fa.bigfolder{color: @gray-lighter;}
+    &.color_2 .fa.bigfolder{color: black;}
+    &.color_3 .fa.bigfolder{color: @jp-red;}
+    &.color_4 .fa.bigfolder{color: @jp-green;}
+    &.color_5 .fa.bigfolder{color: @jp-violet;}
+    &.color_6 .fa.bigfolder{color: @jp-orange;}
+    &.color_7 .fa.bigfolder{color: @jp-brown-dark;}
+    &.color_8 .fa.bigfolder{color: @jp-brown-light;}
+  }
+}
+
+// ** RESOURCE FOLDER **
+// -------------------------------
+.node-resource-file.node-child
+{
+  .resource-file{
+    text-align: center;
+    a{
+      .fa.bigfile{
+        font-size: 128px;
+        color: @jp-brown-dark;
+        position: relative;
+        .preview{
+          position: absolute;
+          font-size: 12px;
+          top: 9px;
+          left: 0;
+          color: white;
+        }
+        .type-icon{
+          position: absolute;
+          font-size: 48px;
+          bottom: 32px;
+          right: 10px;
+          width: 64px;
+          text-align: center;
+          .fa{
+            color: white;
+          }
+        }
+      }
+      .field.field-name-title-field{
+        h3{
+          margin-top:0;
+          color: @jp-brown-dark;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}

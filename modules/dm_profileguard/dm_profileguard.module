@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @param array $items
+ */
+function dm_profileguard_menu_alter(&$items)
+{
+    $items['user/%user']['access callback'] = '_dm_profileguard_check_access_for';
+    $items['user/%user']['access arguments'] = array(1);
+    dpm($items['user/%user'], "UU");
+}
+
+/**
+ * @param \stdClass $requestedAccount
+ * @return null
+ */
+function _dm_profileguard_check_access_for($requestedAccount)
+{
+    /** @var \stdClass $user */
+    global $user;
+    $canViewProfile = false;
+
+    if (!user_is_logged_in()) {
+        //can only view profiles of coaches
+        if (in_array('coach', $requestedAccount->roles)) {
+            $canViewProfile = true;
+        }
+    } else {
+        //echo '<pre>REQUESTED: ' . print_r($requestedAccount, true) . '</pre>';
+        //for now can view all other profiles
+        $canViewProfile = true;
+    }
+
+    if ($canViewProfile) {
+        return true;
+    }
+
+    drupal_goto('<front>', [], 301);
+    return true;
+}

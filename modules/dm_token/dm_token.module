@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * Implements hook_token_info().
+ * Based on example from drupal.org/node/1308488.
+ */
+function dm_token_token_info() {
+    $info['tokens']['node']['smart-meta-description'] = array(
+        'name' => t('Smart meta description'),
+        'description' => t('Meta description for metattags and opengraph'),
+        'dynamic' => TRUE,
+    );
+    return $info;
+}
+
+/**
+ * //[node:smart-meta-description:150]
+ *
+ * @param $type
+ * @param $tokens
+ * @param array $data
+ * @param array $options
+ * @return array
+ */
+function dm_token_tokens($type, $tokens, array $data = array(), array $options = array()) {
+    $replacements = array();
+    $sanitize = !empty($options['sanitize']);
+
+    if ($type == 'node' && !empty($data['node']))
+    {
+        /** @var \stdClass $node */
+        $node = $data['node'];
+        if($node->type == 'blogpost')
+        {
+            foreach ($tokens as $name => $original) {
+                $split_name = explode(':', $name);
+                if ($split_name[0] == 'smart-meta-description') {
+                    $smartMetaDescription = "";
+
+                    $contentField = field_view_field('node', $node, 'field_paragraphs', [], 'it');
+                    $contentField["#title"] = '';
+                    $contentField["#label_display"] = 'none';
+
+                    $txt = strip_tags(drupal_render($contentField));
+                    $txt = str_replace(':&nbsp;', '', $txt);
+                    $txt = preg_replace('/\s+/', ' ',$txt);
+
+                    $teaser_length = 150;
+                    if (isset($split_name[1])) {
+                        $teaser_length = (int) $split_name[1];
+                    }
+
+                    $smartMetaDescription = truncate_utf8($txt, $teaser_length, TRUE, FALSE);
+
+                    $replacements[$original] = $sanitize ? filter_xss($smartMetaDescription) : $smartMetaDescription;
+                }
+            }
+        }
+    }
+
+    return $replacements;
+}

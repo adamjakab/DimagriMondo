@@ -1,0 +1,3 @@
+name = Dimagrimondo Resource CT helper
+description = Helps content type Resurce File (resource_file)
+core = 7.x

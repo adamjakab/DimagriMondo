@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * Implements hook_entity_info_alter().
+ */
+function dm_viewmodes_entity_info_alter(&$entity_info) {
+    /*
+    $entity_info['paragraphs']['view modes']['blogpost_full'] = array(
+        'label' => t('Blogpost Full'),
+        'custom settings' => TRUE,
+    );
+    $entity_info['paragraphs']['view modes']['blogpost_teaser'] = array(
+        'label' => t('Blogpost Teaser'),
+        'custom settings' => TRUE,
+    );
+    */
+}

@@ -1,0 +1,6 @@
+name = Fix Paragraphs and Manual Crop
+description = Fixes manualcrop js error on node edit form caused by paragraphs, by disabling 'preview' edit mode, on image field (forcing 'open' mode).
+core = 7.x
+package = Paragraphs
+dependencies[] = paragraphs
+dependencies[] = manualcrop

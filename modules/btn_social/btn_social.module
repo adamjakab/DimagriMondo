@@ -1,0 +1,224 @@
+<?php
+
+/**
+ * @todo: CLEANUP NEEDED!!!
+ *
+ */
+/**
+ * Implements hook_block_info();
+ *
+ * @return array
+ */
+function btn_social_block_info()
+{
+    return [
+        'btn_social_1' => [
+            'info'  => t('Social buttons') . " 1",
+            'cache' => DRUPAL_NO_CACHE,
+        ],
+        'btn_social_2' => [
+            'info'  => t('Social buttons') . " 2",
+            'cache' => DRUPAL_NO_CACHE,
+        ],
+        'btn_social_3' => [
+            'info'  => t('Social buttons') . " 3",
+            'cache' => DRUPAL_NO_CACHE,
+        ],
+    ];
+}
+
+/**
+ * Implements hook_block_configure()
+ *
+ * @param string $delta - the name of the requested block
+ *
+ * @return array
+ */
+function btn_social_block_configure($delta)
+{
+    $form = array();
+    if (in_array($delta, ['btn_social_1', 'btn_social_2', 'btn_social_3']))
+    {
+        $form['v_tabs']['#type'] = 'vertical_tabs';
+        
+        $form['socialconfig'] = array(
+            '#type'        => 'fieldset',
+            '#title'       => t('Social'),
+            '#weight'      => -1,
+            '#collapsible' => false,
+            '#collapsed'   => false,
+            '#group'       => 'v_tabs',
+        );
+        
+        $form['socialconfig']['enabled'] = array(
+            '#type'          => 'checkboxes',
+            '#title'         => t('Enabled'),
+            '#required'      => true,
+            '#description'   => 'Select what to enable',
+            '#options'       => [
+                'facebook_like'  => 'Facebook Like button',
+                'facebook_share' => 'Facebook Share button',
+                'facebook_page'  => 'Facebook Page widget',
+                'twitter'        => 'Twitter',
+                'pinterest'      => 'Pinterest',
+                'plusone'        => 'Google+',
+            ],
+            '#default_value' => variable_get(strtoupper($delta) . '_ENABLED', []),
+        );
+        
+        $form['socialconfig']['fbappid'] = array(
+            '#type'          => 'textfield',
+            '#title'         => t('Facebook application id'),
+            '#required'      => true,
+            '#description'   => 'Inserire app id di fb',
+            '#default_value' => variable_get(strtoupper($delta) . '_FB_APP_ID', ''),
+        );
+        
+    }
+    
+    return $form;
+}
+
+/**
+ * Implements hook_block_save();
+ *
+ * @param string $delta - the name of the requested block
+ * @param array  $edit
+ */
+function btn_social_block_save($delta, $edit = array())
+{
+    if (in_array($delta, ['btn_social_1', 'btn_social_2', 'btn_social_3']))
+    {
+        variable_set(strtoupper($delta) . '_ENABLED', $edit['enabled']);
+        variable_set(strtoupper($delta) . '_FB_APP_ID', $edit['fbappid']);
+    }
+}
+
+/**
+ * Implementes hook_theme();
+ *
+ * @return array
+ */
+function btn_social_theme()
+{
+    return array(
+        'btn_social_full' => array(
+            // use a template and give the template's name.
+            'template'  => 'btn_social_full',
+            'variables' => array(
+                'link'         => null,
+                'link_encoded' => null,
+                'enabled'      => [],
+            ),
+            'pattern'   => 'btn_social_full__',
+        ),
+    );
+}
+
+/**
+ * Implements hook_block_view()
+ *
+ * @param string $delta - the name of the requested block
+ *
+ * @return array
+ */
+function btn_social_block_view($delta = '')
+{
+    $block = array();
+    if (in_array($delta, ['btn_social_1', 'btn_social_2', 'btn_social_3']))
+    {
+        
+        $enabled = variable_get(strtoupper($delta) . '_ENABLED', []);
+        foreach($enabled as $social => $socialTitle) {
+            btn_social_inject_js_for($social);
+        }
+        
+        /*
+        if ($enabled["facebook_like"] || $enabled["facebook_share"] || $enabled["facebook_page"])
+        {
+            $fbappid = variable_get(strtoupper($delta) . '_FB_APP_ID', '');
+            $version = 'v2.8';
+            $js =
+                '(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/it_IT/sdk.js#xfbml=1&version='
+                . $version . '&appId=' . $fbappid
+                . '"; fjs.parentNode.insertBefore(js, fjs);}(document, \'script\', \'facebook-jssdk\'));';
+            drupal_add_js($js, ['type' => 'inline', 'scope' => 'footer', 'group' => JS_DEFAULT, 'weight' => 99]);
+        }
+        if ($enabled["twitter"])
+        {
+            $js = 'http://platform.twitter.com/widgets.js';
+            drupal_add_js($js, ['type' => 'external', 'scope' => 'footer', 'group' => JS_DEFAULT, 'weight' => 99]);
+        }
+        if ($enabled["pinterest"])
+        {
+            $js = 'http://assets.pinterest.com/js/pinit.js';
+            drupal_add_js($js, ['type' => 'external', 'scope' => 'footer', 'group' => JS_DEFAULT, 'weight' => 99]);
+        }
+        if ($enabled["plusone"])
+        {
+            $js = 'https://apis.google.com/js/plusone.js';
+            drupal_add_js($js, ['type' => 'external', 'scope' => 'footer', 'group' => JS_THEME, 'weight' => 99]);
+        }
+        */
+        
+        $theme = 'btn_social_full';
+        
+        $path = isset($_GET['q']) ? $_GET['q'] : '<front>';
+        $link = url($path, array('absolute' => true));
+        $link_encoded = urlencode($link);
+        
+        $block['subject'] = 'Social buttons';
+        $block['content'] = array(
+            '#theme'        => $theme,
+            '#enabled'      => $enabled,
+            '#link'         => $link,
+            '#link_encoded' => $link_encoded,
+        );
+    }
+    
+    return $block;
+}
+
+/**
+ * @param string $social
+ */
+function btn_social_inject_js_for($social)
+{
+    if(!isset($btn_social_static_js_registry)){
+        static $btn_social_static_js_registry = [];
+    }
+    if (preg_match('/^facebook/', $social) && !array_key_exists('facebook', $btn_social_static_js_registry))
+    {
+        //hmmmmm(this one should be registered without $delta)
+        $fbappid = variable_get(strtoupper('btn_social_1') . '_FB_APP_ID', '');
+        $version = 'v2.8';
+        $js =
+            '(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/it_IT/sdk.js#xfbml=1&version='
+            . $version . '&appId=' . $fbappid
+            . '"; fjs.parentNode.insertBefore(js, fjs);}(document, \'script\', \'facebook-jssdk\'));';
+        drupal_add_js($js, ['type' => 'inline', 'scope' => 'footer', 'group' => JS_DEFAULT, 'weight' => 99]);
+        $btn_social_static_js_registry['facebook'] = true;
+    }
+    
+    if ($social == "twitter" && !array_key_exists($social, $btn_social_static_js_registry))
+    {
+        $js = 'http://platform.twitter.com/widgets.js';
+        drupal_add_js($js, ['type' => 'external', 'scope' => 'footer', 'group' => JS_DEFAULT, 'weight' => 99]);
+        $btn_social_static_js_registry[$social] = true;
+    }
+    
+    if ($social == "pinterest" && !array_key_exists($social, $btn_social_static_js_registry))
+    {
+        $js = 'http://assets.pinterest.com/js/pinit.js';
+        drupal_add_js($js, ['type' => 'external', 'scope' => 'footer', 'group' => JS_DEFAULT, 'weight' => 99]);
+        $btn_social_static_js_registry[$social] = true;
+    }
+    
+    if ($social == "plusone" && !array_key_exists($social, $btn_social_static_js_registry))
+    {
+        $js = 'https://apis.google.com/js/plusone.js';
+        drupal_add_js($js, ['type' => 'external', 'scope' => 'footer', 'group' => JS_THEME, 'weight' => 99]);
+        $btn_social_static_js_registry[$social] = true;
+    }
+}
+

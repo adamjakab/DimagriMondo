@@ -1,0 +1,103 @@
+<?php
+
+/**
+ * Implements hook_field_widget_info().
+ *
+ * @return array
+ */
+function phsmancrp_field_widget_info()
+{
+    return array(
+        'phsmancrp_embed' => array(
+            'label' => t('Advanced Embedded(phsmancrp)'),
+            'field types' => array('paragraphs'),
+            'behaviors' => array(
+                'multiple values' => FIELD_BEHAVIOR_CUSTOM,
+                'default value' => FIELD_BEHAVIOR_NONE,
+            ),
+        ),
+    );
+}
+
+
+/**
+ * Implements hook_field_widget_form().
+ *
+ * @param array     $form
+ * @param array     $form_state
+ * @param array     $field
+ * @param array     $instance
+ * @param string    $langcode
+ * @param array     $items
+ * @param string    $delta
+ * @param array     $element
+ *
+ * @return array
+ */
+function phsmancrp_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element)
+{
+    if ($instance['widget']['type'] == 'phsmancrp_embed') {
+        return paragraphs_field_multiple_value_form($field, $instance, $langcode, $items, $form, $form_state, $delta, $element);
+    }
+}
+
+
+/**
+ * Custom widget form implementation for paragraphs.
+ *
+ * @param array     $form
+ * @param array     $form_state
+ * @param array     $field
+ * @param array     $instance
+ * @param string    $langcode
+ * @param array     $items
+ * @param string    $delta
+ * @param array     $element
+ *
+ * @return array
+ */
+function phsmancrp_field_widget_form_build(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element)
+{
+    /**
+     * The field types listed here will be forced to be shown in "open" edit_ mode (open, closed, preview)
+     */
+    $forcedOpenEditModeFieldTypes = ['image'];
+
+    $field_parents = $element['#field_parents'];
+    $field_name = $element['#field_name'];
+    $language = $element['#language'];
+    $field_state = field_form_get_state($field_parents, $field_name, $language, $form_state);
+
+    if (isset($field_state['entity'][$delta])) {
+        /* @var $paragraph_item ParagraphsItemEntity */
+        $paragraph_item = $field_state['entity'][$delta];
+    } else if (isset($items[$delta])) {
+        /* @var $paragraph_item ParagraphsItemEntity */
+        $paragraph_item = paragraphs_field_get_entity($items[$delta]);
+    }
+
+    if (isset($paragraph_item)) {
+        if (isset($items[$delta]["value"])) {
+            $PIFID = $items[$delta]["value"];
+            $PIV = $paragraph_item->view();
+            if (isset($PIV['paragraphs_item'][$PIFID])) {
+                foreach($PIV['paragraphs_item'][$PIFID] as $VE)
+                {
+                    if(is_array($VE) && array_key_exists('#field_type', $VE))
+                    {
+                        $fieldType = $VE["#field_type"];
+                        $edit_mode = isset($instance['settings']['default_edit_mode']) ? $instance['settings']['default_edit_mode'] : PARAGRAPHS_DEFAULT_EDIT_MODE;
+                        if($edit_mode != 'open' && in_array($fieldType, $forcedOpenEditModeFieldTypes))
+                        {
+                            $edit_mode = 'open';
+                            $instance['settings']['default_edit_mode'] = $edit_mode;
+                        }
+                        //dsm("EDIT MODE FOR FIELD TYPE: " . $fieldType . ' === ' . $edit_mode);
+                    }
+                }
+            }
+        }
+    }
+
+    return paragraphs_field_widget_form_build($form, $form_state, $field, $instance, $langcode, $items, $delta, $element);
+}

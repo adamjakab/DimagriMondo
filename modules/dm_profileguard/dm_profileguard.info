@@ -1,0 +1,4 @@
+name = Dimagrimondo profile guard
+description = Filter who can view which profilepage
+core = 7.x
+dependencies[] = user

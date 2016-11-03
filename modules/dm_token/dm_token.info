@@ -1,0 +1,4 @@
+name = Dimagrimondo custom tokens
+description = Some custom tokens
+core = 7.x
+dependencies[] = token

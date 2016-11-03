@@ -1,0 +1,135 @@
+@import 'variables';
+
+/* BLOGPOS PAGE*/
+body.node-type-blogpost
+{
+  header.group-heading
+  {
+    margin-bottom:30px;
+
+    .field-name-title-field{
+      h1{
+        letter-spacing: 3px;
+        margin-bottom:5px;
+      }
+    }
+  }
+
+  aside.group-info
+  {
+    background: @gray-lightest;
+    color: @gray-light;
+    padding:10px;
+    margin:25px 0 0 0;
+    border-radius: 5px;
+    font-size: 14px;
+    .field{
+      margin-bottom: 10px;
+      .field-label{
+        font-weight: bold;
+      }
+      a{
+        color: @jp-orange;
+      }
+    }
+
+    .field-name-field-tags{
+      .field-items{
+        display:inline-block;
+        margin-left:-10px;
+        .field-item{
+          display:inline-block;
+          a{
+            /*background: @gray-light;*/
+            color: @jp-orange;
+            padding:2px 5px;
+            margin:0 5px;
+          }
+        }
+      }
+    }
+  }
+
+
+  div.paragraphs-items
+  {
+
+  }
+
+  div.wrapper-social{
+    ul.btn-social{
+      list-style: none;
+      padding: 0;
+      margin: 15px 0;
+      li{
+        display:inline-block;
+        margin:0 10px 0 0;
+        padding: 0;
+        line-height: 20px;
+        vertical-align: top;
+      }
+    }
+  }
+}
+
+/* LISTING IN TEASER (HOME PAGE) */
+.blog_articles
+{
+  .field-name-field-single-image{
+    img{
+      border: 1px solid @gray-light2;
+    }
+  }
+  .paragraphs-items-field-paragraphs{
+    .field-name-field-longtext{
+      font-size: 12px;
+      text-align: justify;
+    }
+  }
+  ul.links{
+    li.node-readmore{
+      a{
+        font-size: 12px;
+        color:@dimagrimondo;
+      }
+    }
+  }
+}
+
+/* LISTING BLOG (nid=7) (HOME PAGE) */
+#node-7.node-page.node-full{
+  .view.view-blog{
+    .view-filters{
+
+    }
+    .view-content{
+      ul.row.article-list{
+        li.views-row{
+          margin-bottom:30px;
+        }
+      }
+      ul.links{
+        li.node-readmore{
+          a{
+            font-size: 12px;
+            color:@dimagrimondo;
+          }
+        }
+      }
+      .field-name-field-single-image{
+        img{
+          border: 1px solid @gray-lighter;
+        }
+      }
+      .paragraphs-items-field-paragraphs{
+        .field-name-field-longtext{
+          font-size: 14px;
+          text-align: justify;
+        }
+      }
+    }
+  }
+}
+
+
+

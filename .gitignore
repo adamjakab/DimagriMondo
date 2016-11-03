@@ -1,0 +1,15 @@
+#SITE
+/settings.php
+
+# LIBRARIES
+
+# MODULES
+
+# THEMES
+/themes/dimagrimondo/vendor/
+/themes/dimagrimondo/composer.lock
+
+# ALL
+.directory
+
+
