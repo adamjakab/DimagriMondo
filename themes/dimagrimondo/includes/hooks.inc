@@ -73,3 +73,22 @@ function dimagrimondo_menu_local_tasks_alter(&$data, $router_item, $root_path)
 {
     HookHelper::executeGenericHook(['alter', 'menu', 'local_tasks'], [&$data, $router_item, $root_path]);
 }
+
+
+/*
+ * OLD HOOKS:
+function dimagrimondo_menu_link($vars)
+function dimagrimondo_menu_local_tasks($vars)
+function dimagrimondo_menu_local_task($vars)
+function dimagrimondo_links($vars)
+function dimagrimondo_button($vars)
+function dimagrimondo_breadcrumb($vars)//
+function dimagrimondo_preprocess_block(&$vars)
+function dimagrimondo_preprocess_taxonomy_term(&$vars)
+function dimagrimondo_preprocess_views_exposed_form(&$vars)
+function dimagrimondo_views_pre_render(&$view)
+function dimagrimondo_contextual_links_view_alter(&$element, $items)
+function dimagrimondo_menu_tree__devel(&$vars)
+function dimagrimondo_preprocess_menu_link(&$vars)
+function dimagrimondo_menu_tree__primary(&$vars)
+*/
