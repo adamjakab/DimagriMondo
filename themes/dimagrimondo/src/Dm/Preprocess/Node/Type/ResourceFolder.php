@@ -49,7 +49,7 @@ class ResourceFolder implements HookInterface
                 ? $node->field_color_style[LANGUAGE_NONE][0]['value']
                 : '';
 
-            if($folderColorClass) {
+            if ($folderColorClass) {
                 $classes_array[] = $folderColorClass;
             }
 

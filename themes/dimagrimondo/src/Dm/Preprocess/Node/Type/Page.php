@@ -29,8 +29,7 @@ class Page implements HookInterface
         if (isset($vars['content']['field_title_emotional'][0]['#markup'])) {
             $text = $vars['content']['field_title_emotional'][0]['#markup'];
             $color = '#000000';
-            if(isset($vars['field_color_1'][LANGUAGE_NONE][0]['rgb']) && !empty($vars['field_color_1'][LANGUAGE_NONE][0]['rgb']))
-            {
+            if (isset($vars['field_color_1'][LANGUAGE_NONE][0]['rgb']) && !empty($vars['field_color_1'][LANGUAGE_NONE][0]['rgb'])) {
                 $color = $vars['field_color_1'][LANGUAGE_NONE][0]['rgb'];
             }
             /*
@@ -38,7 +37,7 @@ class Page implements HookInterface
                 $color = '#ffffff';
             }
             */
-            $text = str_replace(['[',']'], ['<span class="colored" style="color:'.$color.';">','</span>'], $text);
+            $text = str_replace(['[', ']'], ['<span class="colored" style="color:' . $color . ';">', '</span>'], $text);
             $vars['content']['field_title_emotional'][0]['#markup'] = $text;
         }
     }

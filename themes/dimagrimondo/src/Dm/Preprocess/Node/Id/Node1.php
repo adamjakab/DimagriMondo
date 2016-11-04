@@ -26,7 +26,7 @@ class Node1 implements HookInterface
     {
         self::injectContactForm($vars);
     }
-    
+
 
     /**
      * ONLY IN TEASER - IN FULL we are using views injection module
@@ -39,12 +39,11 @@ class Node1 implements HookInterface
             $contactFormView = false;
             $contactform_nid = 9;
             $contactNode = node_load($contactform_nid);
-            if($contactNode) {
+            if ($contactNode) {
                 $contactFormView = node_view($contactNode);
             }
 
-            if($contactFormView)
-            {
+            if ($contactFormView) {
                 $vars["content"]['contactForm'] = [
                     '#prefix' => '<div class="text-center margin-v-2">',
                     '#suffix' => '</div>',

@@ -28,7 +28,6 @@ class NodeEdit implements HookInterface
     }
 
 
-
     /**
      * @param array $form
      */

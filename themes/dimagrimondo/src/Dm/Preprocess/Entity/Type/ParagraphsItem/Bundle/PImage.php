@@ -24,7 +24,6 @@ class PImage implements HookInterface
     }
 
 
-
     /**
      * left_block|Sinistra(block)
      * right_block|Destra(block)
@@ -38,24 +37,24 @@ class PImage implements HookInterface
     {
         /** @var \stdClass $entity */
         $entity = isset($vars['elements']['#entity']) ? $vars['elements']['#entity'] : false;
-        if(!isset($entity->field_alignment['und'][0]['value'])) {
+        if (!isset($entity->field_alignment['und'][0]['value'])) {
             return;
         }
 
         $alignmentKey = $entity->field_alignment['und'][0]['value'];
 
         $parts = explode("_", $alignmentKey);
-        if(!is_array($parts) || count($parts) != 2) {
+        if (!is_array($parts) || count($parts) != 2) {
             return;
         }
 
         $alignment = $parts[0];
-        if(!in_array($alignment, ['left','right','center'])) {
+        if (!in_array($alignment, ['left', 'right', 'center'])) {
             return;
         }
 
         $display = $parts[1];
-        if(!in_array($display, ['block','inline'])) {
+        if (!in_array($display, ['block', 'inline'])) {
             return;
         }
 
@@ -63,11 +62,9 @@ class PImage implements HookInterface
         //dsm("DISPLAY: " . $display);
 
         //classes for less
-        if($display == 'block')
-        {
+        if ($display == 'block') {
             $vars["classes_array"][] = 'row';
-        } else
-        {
+        } else {
             $vars["classes_array"][] = 'col-md-6';//for now half-size only
             $vars["classes_array"][] = 'pull-' . $alignment;//for now half-size only
         }
@@ -92,7 +89,7 @@ class PImage implements HookInterface
         $vars['theme_hook_suggestions'][] = 'paragraphs_item__' . $bundle;
         $vars['theme_hook_suggestions'][] = 'paragraphs_item__' . $bundle . '__' . $viewmode;
 
-        if(isset($vars["image--align"]) && isset($vars["image--display"])) {
+        if (isset($vars["image--align"]) && isset($vars["image--display"])) {
             $vars['theme_hook_suggestions'][] = 'paragraphs_item__' . $bundle . '__' . $viewmode . '__' . $vars["image--align"] . '__' . $vars["image--display"];
         }
     }

@@ -26,7 +26,7 @@ class Node8 implements HookInterface
     {
         self::injectFacebookPage($vars);
     }
-    
+
 
     /**
      * ONLY IN TEASER - IN FULL we are using views injection module
@@ -36,7 +36,7 @@ class Node8 implements HookInterface
     {
         if ($vars['view_mode'] == 'full') {
             btn_social_inject_js_for('facebook_page');
-            
+
             $fbp = '<div class="fb-page" data-href="https://www.facebook.com/DimagriMondo" data-tabs="timeline" 
             data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
                 <blockquote cite="https://www.facebook.com/DimagriMondo" class="fb-xfbml-parse-ignore">
@@ -70,7 +70,7 @@ class Node8 implements HookInterface
                 '#markup' => $fbp,
             ];
 
-            
+
             //dpm($vars["content"]);
         }
     }

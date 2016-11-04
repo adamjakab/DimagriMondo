@@ -7,14 +7,14 @@ base theme = mekit
 ;; Regions
 ;;;;;;;;;;;;;;;;;;;;;
 
-regions[wide_top]           = 'Wide top'
-regions[parallax_top]       = 'Parallax Top'
-regions[help]               = 'Help'
-regions[content]            = 'Content'
-regions[bottom]			    = 'Bottom'
-regions[wide_bottom]        = 'Wide bottom'
-regions[parallax_bottom]    = 'Parallax Bottom'
-regions[footer]             = 'Footer'
+regions[wide_top] = 'Wide top'
+regions[parallax_top] = 'Parallax Top'
+regions[help] = 'Help'
+regions[content] = 'Content'
+regions[bottom] = 'Bottom'
+regions[wide_bottom] = 'Wide bottom'
+regions[parallax_bottom] = 'Parallax Bottom'
+regions[footer] = 'Footer'
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Stylesheets

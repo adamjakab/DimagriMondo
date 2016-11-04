@@ -8,6 +8,7 @@
 namespace Mekit\Drupal7\Exception;
 
 
-class HookException extends \Exception {
+class HookException extends \Exception
+{
 
 }

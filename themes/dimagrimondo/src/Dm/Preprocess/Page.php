@@ -32,14 +32,12 @@ class Page implements HookInterface
         // Secondary nav.
         $vars['secondary_nav'] = FALSE;
         if ($vars['secondary_menu']) {
-            if(user_is_logged_in())
-            {
+            if (user_is_logged_in()) {
                 $secondaryNav = menu_tree(variable_get('menu_secondary_links_source', 'user-menu'));
             } else {
                 $secondaryNav = menu_tree('menu-anonymous-menu');
             }
-            if($secondaryNav)
-            {
+            if ($secondaryNav) {
                 $vars['secondary_nav'] = $secondaryNav;
                 $vars['secondary_nav']['#theme_wrappers'] = array('menu_tree__secondary');
             }
@@ -55,7 +53,7 @@ class Page implements HookInterface
         $BC = menu_get_active_breadcrumb();
 
         //Special breadcrumbs for "blogposts" (not in NH)
-        if(isset($vars["node"]) && isset($vars["node"]->type) && $vars["node"]->type == "blogpost") {
+        if (isset($vars["node"]) && isset($vars["node"]->type) && $vars["node"]->type == "blogpost") {
             $BC = [];
             $BC[] = l(t('Home'), '<front>');
             $BC[] = l(t('Articles'), 'node/7');
@@ -72,8 +70,7 @@ class Page implements HookInterface
     private static function fixActiveBlogMenuItem(&$vars)
     {
         $blogMenuItemId = 558;
-        if(isset($vars["node"]) && isset($vars["node"]->type) && $vars["node"]->type == "blogpost")
-        {
+        if (isset($vars["node"]) && isset($vars["node"]->type) && $vars["node"]->type == "blogpost") {
             //this makes changes to node-type-(type) body class - NO GOOD (find another way)
             //menu_set_active_item($vars['primary_nav'][$blogMenuItemId]['#href']);
 

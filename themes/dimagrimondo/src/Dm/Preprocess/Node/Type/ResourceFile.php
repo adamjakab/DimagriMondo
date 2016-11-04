@@ -73,12 +73,12 @@ class ResourceFile implements HookInterface
         $previewElement = false;
         $PI = false;
 
-        if(isset($vars["node"]->field_paragraphs_resource[LANGUAGE_NONE][0]['value'])) {
+        if (isset($vars["node"]->field_paragraphs_resource[LANGUAGE_NONE][0]['value'])) {
             $PI = paragraphs_item_load($vars["node"]->field_paragraphs_resource[LANGUAGE_NONE][0]['value']);
         }
 
-        if($PI) {
-            switch($PI->bundle) {
+        if ($PI) {
+            switch ($PI->bundle) {
                 case "p_image":
                     if (isset($PI->field_single_image[LANGUAGE_NONE][0])) {
                         $previewElement = ['#item' => $PI->field_single_image[LANGUAGE_NONE][0]];
@@ -87,8 +87,7 @@ class ResourceFile implements HookInterface
             }
         }
 
-        if($previewElement)
-        {
+        if ($previewElement) {
             $previewElement['#theme'] = 'image_formatter';
             $previewElement['#image_style'] = 'resource_preview';
             //

@@ -25,7 +25,7 @@ class ThemeHelper
      *
      * @return bool|string|void
      */
-    protected static function getView($view_name, $view_display)
+    public static function getView($view_name, $view_display)
     {
         $answer = '';
         $viewResults = views_get_view_result($view_name, $view_display);
@@ -39,7 +39,7 @@ class ThemeHelper
     /**
      * @return string
      */
-    protected static function getCurrentLanguageCode()
+    public static function getCurrentLanguageCode()
     {
         global $language;
 

@@ -7,7 +7,6 @@
 
 namespace Dm\Alter\Menu;
 
-
 use Mekit\Drupal7\HookInterface;
 
 class LocalTasks implements HookInterface
@@ -39,8 +38,7 @@ class LocalTasks implements HookInterface
      */
     private static function blogPostAddButton(&$data)
     {
-        if(user_access('create blogpost content'))
-        {
+        if (user_access('create blogpost content')) {
             /** @var \stdClass $node */
             $node = menu_get_object();
             if ($node && isset($node->nid) && $node->nid == 7) {

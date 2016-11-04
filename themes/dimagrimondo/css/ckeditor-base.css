@@ -1,8 +1,8 @@
 html,
-body{
-  background: #fff;
+body {
+    background: #fff;
 }
 
-body.cke_editable{
-  margin: 20px;
+body.cke_editable {
+    margin: 20px;
 }

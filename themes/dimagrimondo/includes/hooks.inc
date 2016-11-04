@@ -1,14 +1,15 @@
 <?php
 
-use Mekit\Drupal7\HookExecutor;
 use Mekit\Drupal7\Exception\ThemeException;
+use Mekit\Drupal7\HookExecutor;
 
 /**
  * Implements hook_preprocess_page()
  * @param array $vars
  * @throws ThemeException
  */
-function dimagrimondo_preprocess_page(&$vars) {
+function dimagrimondo_preprocess_page(&$vars)
+{
     HookExecutor::executeGenericHook(['preprocess', 'page'], [&$vars]);
 }
 

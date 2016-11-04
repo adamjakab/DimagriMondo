@@ -8,6 +8,7 @@
 namespace Mekit\Drupal7\Exception;
 
 
-class ThemeException extends \Exception {
+class ThemeException extends \Exception
+{
 
 }

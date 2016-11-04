@@ -21,7 +21,8 @@ class Html implements HookInterface
     }
 
 
-    private static function addGoogleFonts() {
+    private static function addGoogleFonts()
+    {
         $fonts = array(
             0 => 'http://fonts.googleapis.com/css?family=Montserrat:400,700',
             1 => 'http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,300,400,600',

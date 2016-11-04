@@ -22,7 +22,7 @@ class Blogpost implements HookInterface
 
 
         /** @var \stdClass $node */
-       // $node = $vars['node'];
+        // $node = $vars['node'];
         //dpm($node);
 
 
@@ -47,11 +47,10 @@ class Blogpost implements HookInterface
 
             /*dpm($vars["content"]['group_info']);*/
 
-            if($user){
+            if ($user) {
                 //dpm($user,"USER");
 
-                if(isset($vars["display_submitted"]) && $vars["display_submitted"])
-                {
+                if (isset($vars["display_submitted"]) && $vars["display_submitted"]) {
                     $vars["content"]['group_info']["author"] = [
                         '#prefix' => '<div class="field field-custom field-custom-author field-label-above col-sm-3 col-xs-6">',
                         '#suffix' => '</div>',
@@ -74,10 +73,9 @@ class Blogpost implements HookInterface
                 //.$vars['user_picture']
             }
 
-            if($node)
-            {
+            if ($node) {
                 //$articleDate =  format_date($node->created, 'medium');
-                $articleDate =  format_date($node->changed, 'date_only');
+                $articleDate = format_date($node->changed, 'date_only');
                 $vars["content"]['group_info']["article_date"] = [
                     '#prefix' => '<div class="field field-custom field-custom-article-date field-label-above col-sm-3 col-xs-6">',
                     '#suffix' => '</div>',
@@ -89,7 +87,7 @@ class Blogpost implements HookInterface
                             '#markup' => t('Date') . ':',
                         ],
                         'value' => [
-                            '#markup' =>  $articleDate,
+                            '#markup' => $articleDate,
                         ],
                     ],
                 ];
