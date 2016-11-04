@@ -1,5 +1,8 @@
 <?php
 
+use Dm\Util\HookHelper;
+use Dm\Exception\ThemeException;
+
 /**
  * @return array
  */
@@ -48,13 +51,26 @@ function dimagrimondo_preprocess_resource_folder(&$vars)
 /**
  * Bootstrap theme wrapper function for the primary menu links.
  */
-function dimagrimondo_menu_tree__primary(&$vars) {
-    return '<ul class="menu nav navbar-nav dm">' . $vars['tree'] . '</ul>';
+function dimagrimondo_menu_tree__primary($vars)
+{
+    return '<ul class="menu nav navbar-nav">' . $vars['tree'] . '</ul>';
 }
 
 /**
  * Bootstrap theme wrapper function for the secondary menu links.
  */
-function dimagrimondo_menu_tree__secondary(&$vars) {
-    return '<ul class="menu nav navbar-nav secondary dm">' . $vars['tree'] . '</ul>';
+function dimagrimondo_menu_tree__secondary($vars)
+{
+    return '<ul class="menu nav navbar-nav secondary">' . $vars['tree'] . '</ul>';
+}
+
+/**
+ * Implements theme_menu_link()
+ * @param array $vars
+ * @return mixed
+ * @throws ThemeException
+ */
+function dimagrimondo_menu_link($vars)
+{
+    return HookHelper::executeGenericHook(['theme', 'menu', 'link'], [$vars]);
 }

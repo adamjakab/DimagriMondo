@@ -17,7 +17,7 @@ class Page extends Hook implements HookInterface
      */
     public static function execute(&$vars)
     {
-        self::setupSecondaryNavigation($vars);
+        self::selectMenuForSecondaryNavigation($vars);
         self::setUpBreadcrumbs($vars);
         self::fixActiveBlogMenuItem($vars);
         //dpm($vars, "PAGE VARS");
@@ -27,16 +27,16 @@ class Page extends Hook implements HookInterface
     /**
      * @param array $vars
      */
-    private static function setupSecondaryNavigation(&$vars)
+    private static function selectMenuForSecondaryNavigation(&$vars)
     {
         // Secondary nav.
         $vars['secondary_nav'] = FALSE;
         if ($vars['secondary_menu']) {
             if(user_is_logged_in())
             {
-                $secondaryNav = self::getUserMenu($vars);
+                $secondaryNav = menu_tree(variable_get('menu_secondary_links_source', 'user-menu'));
             } else {
-                $secondaryNav = self::getAnonymousMenu($vars);
+                $secondaryNav = menu_tree('menu-anonymous-menu');
             }
             if($secondaryNav)
             {
@@ -44,42 +44,7 @@ class Page extends Hook implements HookInterface
                 $vars['secondary_nav']['#theme_wrappers'] = array('menu_tree__secondary');
             }
         }
-        dpm($vars["secondary_nav"], "SECONDARY NAV");
     }
-    
-    /**
-     * @param array $vars
-     *
-     * @return bool|array
-     */
-    private static function getUserMenu($vars)
-    {
-        $answer = false;
-        $answer = menu_tree(variable_get('menu_secondary_links_source', 'user-menu'));
-        
-        /*
-        $answer["jack"] = [
-            '#prefix' => '<pre>',
-            '#suffix' => '</pre>',
-            '#markup' => 'TEST',
-        ];
-        */
-        return $answer;
-    }
-    
-    /**
-     * @param array $vars
-     *
-     * @return bool|array
-     */
-    private static function getAnonymousMenu($vars)
-    {
-        $answer = false;
-        $answer = menu_tree('menu-anonymous-menu');
-        return $answer;
-    }
-    
-    
 
     /**
      * @param array $vars
