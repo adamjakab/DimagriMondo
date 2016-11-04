@@ -1,13 +1,13 @@
 #SITE
 /settings.php
+/composer.lock
+/vendor
 
 # LIBRARIES
 
 # MODULES
 
 # THEMES
-/themes/dimagrimondo/vendor/
-/themes/dimagrimondo/composer.lock
 
 # ALL
 .directory

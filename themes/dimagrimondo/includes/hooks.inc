@@ -1,7 +1,7 @@
 <?php
 
-use Dm\Util\HookHelper;
-use Dm\Exception\ThemeException;
+use Mekit\Drupal7\HookExecutor;
+use Mekit\Drupal7\Exception\ThemeException;
 
 /**
  * Implements hook_preprocess_page()
@@ -9,7 +9,7 @@ use Dm\Exception\ThemeException;
  * @throws ThemeException
  */
 function dimagrimondo_preprocess_page(&$vars) {
-    HookHelper::executeGenericHook(['preprocess', 'page'], [&$vars]);
+    HookExecutor::executeGenericHook(['preprocess', 'page'], [&$vars]);
 }
 
 /**
@@ -19,7 +19,7 @@ function dimagrimondo_preprocess_page(&$vars) {
  */
 function dimagrimondo_preprocess_html(&$vars)
 {
-    HookHelper::executeGenericHook(['preprocess', 'html'], [&$vars]);
+    HookExecutor::executeGenericHook(['preprocess', 'html'], [&$vars]);
 }
 
 /**
@@ -29,7 +29,7 @@ function dimagrimondo_preprocess_html(&$vars)
  */
 function dimagrimondo_preprocess_node(&$vars)
 {
-    HookHelper::executeNodeHooks(['preprocess', 'node'], [&$vars]);
+    HookExecutor::executeNodeHooks(['preprocess', 'node'], [&$vars]);
 }
 
 /**
@@ -39,7 +39,7 @@ function dimagrimondo_preprocess_node(&$vars)
  */
 function dimagrimondo_preprocess_entity(&$vars)
 {
-    HookHelper::executeEntityHooks(['preprocess', 'entity'], [&$vars]);
+    HookExecutor::executeEntityHooks(['preprocess', 'entity'], [&$vars]);
 }
 
 /**
@@ -50,7 +50,7 @@ function dimagrimondo_preprocess_entity(&$vars)
  */
 function dimagrimondo_form_node_form_alter(&$form, $form_state)
 {
-    HookHelper::executeGenericHook(['alter', 'form', 'node_edit'], [&$form, $form_state]);
+    HookExecutor::executeGenericHook(['alter', 'form', 'node_edit'], [&$form, $form_state]);
 }
 
 /**
@@ -62,7 +62,7 @@ function dimagrimondo_form_node_form_alter(&$form, $form_state)
  */
 function dimagrimondo_form_alter(&$form, &$form_state, $form_id)
 {
-    HookHelper::executeGenericHook(['alter', 'form', 'id', $form_id], [&$form, $form_state], true);
+    HookExecutor::executeGenericHook(['alter', 'form', 'id', $form_id], [&$form, $form_state], true);
 }
 
 
@@ -75,7 +75,7 @@ function dimagrimondo_form_alter(&$form, &$form_state, $form_id)
  */
 function dimagrimondo_menu_local_tasks_alter(&$data, $router_item, $root_path)
 {
-    HookHelper::executeGenericHook(['alter', 'menu', 'local_tasks'], [&$data, $router_item, $root_path]);
+    HookExecutor::executeGenericHook(['alter', 'menu', 'local_tasks'], [&$data, $router_item, $root_path]);
 }
 
 

@@ -1,7 +1,7 @@
 <?php
 
-use Dm\Util\HookHelper;
-use Dm\Exception\ThemeException;
+use Mekit\Drupal7\HookExecutor;
+use Mekit\Drupal7\Exception\ThemeException;
 
 /**
  * @return array
@@ -72,5 +72,5 @@ function dimagrimondo_menu_tree__secondary($vars)
  */
 function dimagrimondo_menu_link($vars)
 {
-    return HookHelper::executeGenericHook(['theme', 'menu', 'link'], [$vars]);
+    return HookExecutor::executeGenericHook(['theme', 'menu', 'link'], [$vars]);
 }

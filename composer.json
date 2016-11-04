@@ -1,0 +1,23 @@
+{
+  "name": "jack/dimagrimondo-site",
+  "description": "DimagriMondo site for D7",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Adam Jakab",
+      "email": "jakabadambalazs@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "danielstjules/stringy": "~2.3",
+    "symfony/yaml": "^3.1"
+  },
+  "autoload": {
+    "psr-0": {
+      "Mekit\\": "src/",
+      "Dm\\": "themes/dimagrimondo/src/"
+    }
+  }
+}
