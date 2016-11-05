@@ -58,6 +58,12 @@ class Link implements HookInterface
         /** @var \stdClass $currUser */
         $currentUser = user_load($user->uid);
 
+        $userName = $user->name;
+        if (isset($currentUser->name_field[LANGUAGE_NONE][0]['value'])) {
+            $userName = $currentUser->name_field[LANGUAGE_NONE][0]['value'];
+        }
+
+        /* The menu item link element */
         $element = $vars['element'];
 
 
@@ -67,21 +73,31 @@ class Link implements HookInterface
         $sub_menu = '';
         if ($element['#below']) {
             unset($element['#below']['#theme_wrappers']);
-            $sub_menu = '<ul class="profile-menu">' . drupal_render($element['#below']) . '</ul>';
+            $sub_menu = '<ul class="dropdown-menu profile-menu">' . drupal_render($element['#below']) . '</ul>';
         }
 
-        $element['#title'] = $user->name;
+        $element['#title'] = $userName;
         $element['#attributes']['class'][] = 'dropdown';
-        $element['#attributes']['class'][] = 'user-picture';
+        $element['#attributes']['class'][] = 'profile';
         $element['#localized_options']['html'] = TRUE;
         $element['#localized_options']['attributes']['class'][] = 'dropdown-toggle';
         $element['#localized_options']['attributes']['data-target'] = '#';
         $element['#localized_options']['attributes']['data-toggle'] = 'dropdown';
 
         $avatarImage = '';
-        if (isset($currentUser->field_single_image[LANGUAGE_NONE][0]['uri'])) {
-            $fileUri = $currentUser->field_single_image[LANGUAGE_NONE][0]['uri'];
-            $avatarImage = theme('image_style', array('style_name' => 'profile_menu_avatar', 'path' => $fileUri, 'alt' => $element['#title'], 'title' => $element['#title']));
+        if (isset($currentUser->field_single_image_private[LANGUAGE_NONE][0]['uri'])) {
+            $fileUri = $currentUser->field_single_image_private[LANGUAGE_NONE][0]['uri'];
+            $avatarImage = theme('image_style',
+                [
+                    'style_name' => 'profile_menu_avatar',
+                    'path' => $fileUri,
+                    'alt' => $userName,
+                    'title' => $userName,
+                    'attributes' => [
+                        'class' => ['circular']
+                    ],
+                ]
+            );
         }
 
 
@@ -90,18 +106,25 @@ class Link implements HookInterface
                 '#prefix' => '<a href="#" class="dropdown-toggle" data-toggle="dropdown">',
                 '#suffix' => '</a>',
                 'user-avatar' => [
-                    '#markup' => '<i class="fa fa-user" aria-hidden="true"></i>',
+                    '#markup' => $avatarImage,/*'<i class="fa fa-user" aria-hidden="true"></i>',*/
                 ],
                 'user-name' => [
-                    '#markup' => $element['#title'],
+                    '#prefix' => '<span class="name">',
+                    '#suffix' => '</span>',
+                    '#markup' => $userName,
                 ],
                 'chevron' => [
                     '#markup' => '&nbsp;<i class="fa fa-chevron-down" aria-hidden="true"></i>'
                 ]
             ],
             'dropdown' => [
+                '#markup' => $sub_menu,
+            ],
+            /*
+            'dropdown' => [
                 '#prefix' => '<ul class="dropdown-menu">',
                 '#suffix' => '</ul>',
+
                 'li-profile' => [
                     '#prefix' => '<li><div class="navbar-login"><div class="row">',
                     '#suffix' => '</div></div></li>',
@@ -134,6 +157,7 @@ class Link implements HookInterface
                     '#prefix' => '<li class="divider">',
                     '#suffix' => '</li>',
                 ],
+
                 'li-submenu' => [
                     '#prefix' => '<li class="profile-menu">',
                     '#suffix' => '</li>',
@@ -143,7 +167,7 @@ class Link implements HookInterface
                     '#prefix' => '<li>',
                     '#suffix' => '</li>',
                 ],
-            ],
+            ],*/
         ];
 
         $liMarkup = drupal_render($liContent);

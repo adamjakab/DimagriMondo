@@ -63,6 +63,16 @@ function dimagrimondo_preprocess_entity(&$vars)
 }
 
 /**
+ * Implements hook_preprocess_user_profile()
+ * @param array $vars
+ * @throws ThemeException
+ */
+function dimagrimondo_preprocess_user_profile(&$vars)
+{
+    HookExecutor::executeGenericHook(['preprocess', 'user_profile'], [&$vars]);
+}
+
+/**
  * Generic node(all types) edit form hook
  * @param array $form
  * @param array $form_state

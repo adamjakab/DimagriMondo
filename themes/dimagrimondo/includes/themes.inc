@@ -53,7 +53,7 @@ function dimagrimondo_theme()
  */
 function dimagrimondo_menu_tree__primary($vars)
 {
-    return '<ul class="menu nav navbar-nav">' . $vars['tree'] . '</ul>';
+    return '<ul class="menu nav navbar-nav primary">' . $vars['tree'] . '</ul>';
 }
 
 /**

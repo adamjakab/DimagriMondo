@@ -38,11 +38,8 @@
             <div class="navbar-collapse collapse">
                 <nav role="navigation">
                     <?php if (!empty($primary_nav)): ?>
-                        <ul class="nav navbar-nav">
-                            <?php print render($primary_nav); ?>
-                        </ul>
+                        <?php print render($primary_nav); ?>
                     <?php endif; ?>
-
                     <?php if (!empty($secondary_nav)): ?>
                         <?php print render($secondary_nav); ?>
                     <?php endif; ?>
