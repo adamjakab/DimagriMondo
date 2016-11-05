@@ -3,15 +3,6 @@
 use Mekit\Drupal7\Exception\ThemeException;
 use Mekit\Drupal7\HookExecutor;
 
-/**
- * Implements hook_preprocess_page()
- * @param array $vars
- * @throws ThemeException
- */
-function dimagrimondo_preprocess_page(&$vars)
-{
-    HookExecutor::executeGenericHook(['preprocess', 'page'], [&$vars]);
-}
 
 /**
  * Implements hook_preprocess_html()
@@ -24,6 +15,16 @@ function dimagrimondo_preprocess_html(&$vars)
 }
 
 /**
+ * Implements hook_preprocess_page()
+ * @param array $vars
+ * @throws ThemeException
+ */
+function dimagrimondo_preprocess_page(&$vars)
+{
+    HookExecutor::executeGenericHook(['preprocess', 'page'], [&$vars]);
+}
+
+/**
  * Implements hook_preprocess_node()
  * @param array $vars
  * @throws ThemeException
@@ -31,6 +32,24 @@ function dimagrimondo_preprocess_html(&$vars)
 function dimagrimondo_preprocess_node(&$vars)
 {
     HookExecutor::executeNodeHooks(['preprocess', 'node'], [&$vars]);
+}
+
+/**
+ * Implements hook_preprocess_field()
+ * @param array $vars
+ */
+function dimagrimondo_preprocess_field(&$vars)
+{
+    HookExecutor::executeFieldHooks(['preprocess', 'field'], [&$vars]);
+}
+
+/**
+ * Implements hook_preprocess_paragraphs_items()
+ * @param $vars
+ */
+function dimagrimondo_preprocess_paragraphs_items(&$vars)
+{
+    HookExecutor::executeGenericHook(['preprocess', 'paragraphs_items'], [&$vars]);
 }
 
 /**
