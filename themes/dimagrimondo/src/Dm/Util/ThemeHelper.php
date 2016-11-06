@@ -22,15 +22,19 @@ class ThemeHelper
      *
      * @param string $view_name
      * @param string $view_display
+     * @param array $args
      *
      * @return bool|string|void
      */
-    public static function getView($view_name, $view_display)
+    public static function getView($view_name, $view_display, array $args = [])
     {
         $answer = '';
-        $viewResults = views_get_view_result($view_name, $view_display);
+        $funcArgs = array_merge([$view_name, $view_display], $args);
+        //$viewResults = views_get_view_result($view_name, $view_display);
+        $viewResults = call_user_func_array('views_get_view_result', $funcArgs);
         if (count($viewResults)) {
-            $answer = views_embed_view($view_name, $view_display);
+            //$answer = views_embed_view($view_name, $view_display);
+            $answer = call_user_func_array('views_embed_view', $funcArgs);
         }
 
         return $answer;

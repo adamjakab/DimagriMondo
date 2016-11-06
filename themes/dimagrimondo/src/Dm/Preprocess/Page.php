@@ -29,19 +29,13 @@ class Page implements HookInterface
      */
     private static function selectMenuForSecondaryNavigation(&$vars)
     {
-        // Secondary nav.
-        $vars['secondary_nav'] = FALSE;
-        if ($vars['secondary_menu']) {
-            if (user_is_logged_in()) {
-                $secondaryNav = menu_tree(variable_get('menu_secondary_links_source', 'user-menu'));
-            } else {
-                $secondaryNav = menu_tree('menu-anonymous-menu');
-            }
-            if ($secondaryNav) {
-                $vars['secondary_nav'] = $secondaryNav;
-                $vars['secondary_nav']['#theme_wrappers'] = array('menu_tree__secondary');
-            }
+        if (user_is_logged_in()) {
+            $secondaryNav = menu_tree(variable_get('menu_secondary_links_source', 'user-menu'));
+        } else {
+            $secondaryNav = menu_tree('menu-anonymous-menu');
         }
+        $vars['secondary_nav'] = $secondaryNav;
+        $vars['secondary_nav']['#theme_wrappers'] = array('menu_tree__secondary');
     }
 
     /**

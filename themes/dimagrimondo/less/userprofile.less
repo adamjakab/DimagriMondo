@@ -1,10 +1,11 @@
 body.page-user {
   .profile {
+    /*padding-top: 25px;*/
 
     .field-name-field-single-image-private {
       img {
+        width: 110px;
         display: inline-block;
-        height: 220px;
         border-radius: 50%;
         -webkit-border-radius: 50%;
         -moz-border-radius: 50%;
@@ -12,8 +13,17 @@ body.page-user {
         -webkit-box-shadow: 0 0 12px rgba(0, 0, 0, .6);
         -moz-box-shadow: 0 0 12px rgba(0, 0, 0, .6);
       }
-
     }
+
+    &.coach {
+      .field-name-field-single-image-private {
+        img {
+          width: 220px;
+        }
+      }
+    }
+
+
 
     .field-name-name-field {
       h1 {
@@ -21,8 +31,56 @@ body.page-user {
       }
     }
 
+    .group-profile-info {
+      padding: 25px 0;
+    }
     .group-links {
       text-align: center;
     }
   }
+
+  /* SOCIALFIELD OVERRIDES */
+  .field-name-field-social-links {
+    ul {
+      list-style: none;
+      overflow: auto;
+      padding: 0 !important;
+      margin: 0 !important;
+      text-align: center;
+      li {
+        float: none;
+        display: inline-block;
+        margin: 0 !important;
+        padding: 0 !important;
+
+        .icon {
+          color: black;
+          font-size: 20px;
+          padding: 8px 4px;
+          background: none;
+        }
+
+        &.service-facebook .icon {
+          color: #3b5998;
+        }
+        &.service-twitter .icon {
+          color: #55acee;
+        }
+        &.service-googleplus .icon {
+          color: #dc4a38;
+        }
+        &.service-linkedin .icon {
+          color: #0e76a8;
+        }
+        &.service-youtube .icon {
+          color: #c4302b;
+        }
+        &.service-pinterest .icon {
+          color: #c8232c;
+        }
+
+      }
+    }
+  }
+
 }
