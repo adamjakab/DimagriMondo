@@ -1,5 +1,5 @@
 <?php
-    // Template for resource file in child view mode
+// Template for resource file in child view mode
 ?>
 
 <div class="resource-file">

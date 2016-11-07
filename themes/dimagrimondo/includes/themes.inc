@@ -1,5 +1,8 @@
 <?php
 
+use Mekit\Drupal7\Exception\ThemeException;
+use Mekit\Drupal7\HookExecutor;
+
 /**
  * @return array
  */
@@ -12,13 +15,13 @@ function dimagrimondo_theme()
             'pattern' => 'resource-folder__',
             'path' => $themePath,
             'variables' => [
-                'title'                     => NULL,
-                'icon'                      => NULL,
-                'link'                      => NULL,
-                'number_of_children'        => 0,
-                'number_of_descendants'     => 0,
-                'classes'                   => NULL,
-                'attributes'                => NULL,
+                'title' => NULL,
+                'icon' => NULL,
+                'link' => NULL,
+                'number_of_children' => 0,
+                'number_of_descendants' => 0,
+                'classes' => NULL,
+                'attributes' => NULL,
             ],
         ],
         'resource_file' => [
@@ -26,12 +29,12 @@ function dimagrimondo_theme()
             'pattern' => 'resource-file__',
             'path' => $themePath,
             'variables' => [
-                'title'                     => NULL,
-                'icon'                      => NULL,
-                'preview'                   => NULL,
-                'link'                      => NULL,
-                'classes'                   => NULL,
-                'attributes'                => NULL,
+                'title' => NULL,
+                'icon' => NULL,
+                'preview' => NULL,
+                'link' => NULL,
+                'classes' => NULL,
+                'attributes' => NULL,
             ],
         ],
     ];
@@ -39,22 +42,35 @@ function dimagrimondo_theme()
 
 /**
  * Implements hook_preprocess_themehook()
-function dimagrimondo_preprocess_resource_folder(&$vars)
-{
-    dpm($vars, "preprocessing RF");
-}
-*/
+ * function dimagrimondo_preprocess_resource_folder(&$vars)
+ * {
+ * dpm($vars, "preprocessing RF");
+ * }
+ */
 
 /**
  * Bootstrap theme wrapper function for the primary menu links.
  */
-function dimagrimondo_menu_tree__primary(&$vars) {
-    return '<ul class="menu nav navbar-nav dm">' . $vars['tree'] . '</ul>';
+function dimagrimondo_menu_tree__primary($vars)
+{
+    return '<ul class="menu nav navbar-nav primary">' . $vars['tree'] . '</ul>';
 }
 
 /**
  * Bootstrap theme wrapper function for the secondary menu links.
  */
-function dimagrimondo_menu_tree__secondary(&$vars) {
-    return '<ul class="menu nav navbar-nav secondary dm">' . $vars['tree'] . '</ul>';
+function dimagrimondo_menu_tree__secondary($vars)
+{
+    return '<ul class="menu nav navbar-nav secondary">' . $vars['tree'] . '</ul>';
+}
+
+/**
+ * Implements theme_menu_link()
+ * @param array $vars
+ * @return mixed
+ * @throws ThemeException
+ */
+function dimagrimondo_menu_link($vars)
+{
+    return HookExecutor::executeGenericHook(['theme', 'menu', 'link'], [$vars]);
 }

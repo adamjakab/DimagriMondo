@@ -1,39 +1,87 @@
+/*
+  Navbar
+*/
 .navbar-default {
   background-color: #ffffff;
   border-color: #e0e0e0;
-  .navbar-btn{
+  .navbar-btn {
     margin: 10px 0;
   }
 
-  .navbar-toggle, .navbar-toggle.collapsed
-  {
+  .navbar-toggle, .navbar-toggle.collapsed {
     background: @dimagrimondo;
     border-color: @gray-lightest;
-    .icon-bar{
+    .icon-bar {
       background: #ffffff;
     }
   }
 
-  .navbar-toggle:hover, .navbar-toggle:focus
-  {
+  .navbar-toggle:hover, .navbar-toggle:focus {
     background: @dimagrimondo;
     border-color: @gray-lightest;
-    .icon-bar{
+    .icon-bar {
       background: @gray;
     }
   }
 
-  nav{
-    ul.navbar-nav{
-      li{
-        a{
-          i.fa{
+  nav {
+    ul.navbar-nav {
+      @media (min-width: @screen-sm-min) {
+        margin-top: 18px;
+      }
+      > li {
+        > a {
+          @media (min-width: @screen-sm-min) {
+            padding-top: 10px;
+            padding-bottom: 10px;
+          }
+          i.fa {
             margin-right: 6px;
             font-size: 16px;
-            color:@gray-light;
+            color: @gray-light;
           }
         }
       }
+      &.primary {
+        //
+      }
+      &.secondary {
+        li.profile.dropdown {
+          > a {
+            padding-left: 1px;
+            padding-right: 1px;
+            img, span, i {
+              display: inline-block;
+            }
+            img.circular {
+              width: 30px;
+              height: 30px;
+              border-radius: 50%;
+              -webkit-border-radius: 50%;
+              -moz-border-radius: 50%;
+              box-shadow: 0 0 4px rgba(0, 0, 0, .6);
+              -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, .6);
+              -moz-box-shadow: 0 0 4px rgba(0, 0, 0, .6);
+            }
+            span.name {
+              margin-left: 10px;
+            }
+          }
+
+        }
+      }
+
+      .dropdown-menu {
+        > li {
+          > a {
+            padding: 3px 10px;
+            i.fa {
+              margin-right: 6px;
+            }
+          }
+        }
+      }
+
     }
   }
 }

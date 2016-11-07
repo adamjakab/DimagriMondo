@@ -3,13 +3,13 @@
  * Mapping paragraph type (only one allowed in this node type) directly on node->field_resource_type
  * @param \stdClass $node
  */
-function dm_ct_resource_node_presave($node) {
+function dm_ct_resource_node_presave($node)
+{
     $currentParagraphBundle = 'unknown';
-    if(isset($node->field_paragraphs_resource[LANGUAGE_NONE][0]['value']))
-    {
+    if (isset($node->field_paragraphs_resource[LANGUAGE_NONE][0]['value'])) {
         $paragraphsItemId = $node->field_paragraphs_resource[LANGUAGE_NONE][0]['value'];
         $paragraphsItem = paragraphs_item_load($paragraphsItemId);
-        if(isset($paragraphsItem->bundle)){
+        if (isset($paragraphsItem->bundle)) {
             $currentParagraphBundle = $paragraphsItem->bundle;
         }
     }

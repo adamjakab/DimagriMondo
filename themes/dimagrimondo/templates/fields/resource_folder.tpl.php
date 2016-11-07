@@ -1,5 +1,5 @@
 <?php
-    // Template for resource folder in child view mode
+// Template for resource folder in child view mode
 ?>
 
 <div class="<?php print $classes; ?>"<?php print $attributes; ?>>

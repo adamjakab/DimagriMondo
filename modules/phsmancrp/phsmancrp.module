@@ -23,14 +23,14 @@ function phsmancrp_field_widget_info()
 /**
  * Implements hook_field_widget_form().
  *
- * @param array     $form
- * @param array     $form_state
- * @param array     $field
- * @param array     $instance
- * @param string    $langcode
- * @param array     $items
- * @param string    $delta
- * @param array     $element
+ * @param array $form
+ * @param array $form_state
+ * @param array $field
+ * @param array $instance
+ * @param string $langcode
+ * @param array $items
+ * @param string $delta
+ * @param array $element
  *
  * @return array
  */
@@ -45,14 +45,14 @@ function phsmancrp_field_widget_form(&$form, &$form_state, $field, $instance, $l
 /**
  * Custom widget form implementation for paragraphs.
  *
- * @param array     $form
- * @param array     $form_state
- * @param array     $field
- * @param array     $instance
- * @param string    $langcode
- * @param array     $items
- * @param string    $delta
- * @param array     $element
+ * @param array $form
+ * @param array $form_state
+ * @param array $field
+ * @param array $instance
+ * @param string $langcode
+ * @param array $items
+ * @param string $delta
+ * @param array $element
  *
  * @return array
  */
@@ -81,14 +81,11 @@ function phsmancrp_field_widget_form_build(&$form, &$form_state, $field, $instan
             $PIFID = $items[$delta]["value"];
             $PIV = $paragraph_item->view();
             if (isset($PIV['paragraphs_item'][$PIFID])) {
-                foreach($PIV['paragraphs_item'][$PIFID] as $VE)
-                {
-                    if(is_array($VE) && array_key_exists('#field_type', $VE))
-                    {
+                foreach ($PIV['paragraphs_item'][$PIFID] as $VE) {
+                    if (is_array($VE) && array_key_exists('#field_type', $VE)) {
                         $fieldType = $VE["#field_type"];
                         $edit_mode = isset($instance['settings']['default_edit_mode']) ? $instance['settings']['default_edit_mode'] : PARAGRAPHS_DEFAULT_EDIT_MODE;
-                        if($edit_mode != 'open' && in_array($fieldType, $forcedOpenEditModeFieldTypes))
-                        {
+                        if ($edit_mode != 'open' && in_array($fieldType, $forcedOpenEditModeFieldTypes)) {
                             $edit_mode = 'open';
                             $instance['settings']['default_edit_mode'] = $edit_mode;
                         }

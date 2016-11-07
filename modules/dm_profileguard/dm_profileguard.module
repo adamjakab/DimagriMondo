@@ -1,4 +1,8 @@
 <?php
+/*
+ * Modify profile menu link and redirect to home if no access
+ */
+
 
 /**
  * @param array $items
@@ -7,7 +11,6 @@ function dm_profileguard_menu_alter(&$items)
 {
     $items['user/%user']['access callback'] = '_dm_profileguard_check_access_for';
     $items['user/%user']['access arguments'] = array(1);
-    dpm($items['user/%user'], "UU");
 }
 
 /**
@@ -17,7 +20,7 @@ function dm_profileguard_menu_alter(&$items)
 function _dm_profileguard_check_access_for($requestedAccount)
 {
     /** @var \stdClass $user */
-    global $user;
+    //global $user;
     $canViewProfile = false;
 
     if (!user_is_logged_in()) {
@@ -26,7 +29,6 @@ function _dm_profileguard_check_access_for($requestedAccount)
             $canViewProfile = true;
         }
     } else {
-        //echo '<pre>REQUESTED: ' . print_r($requestedAccount, true) . '</pre>';
         //for now can view all other profiles
         $canViewProfile = true;
     }

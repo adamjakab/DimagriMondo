@@ -1,6 +1,12 @@
 <?php
 /**
- * Common methods shared by theme which cannot be included into classes because of D7 methodology
- * like: er...
+ * Common defines and functions
  */
 
+use Mekit\Drupal7\HookExecutor;
+
+/**
+ * Setting namespace root for HookExecutor using the name of the current theme
+ * like 'mytheme' -> 'Mytheme\'
+ */
+HookExecutor::setHooksNameSpaceRoot('Dm\\');

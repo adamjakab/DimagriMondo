@@ -3,7 +3,8 @@
 /**
  * Implements hook_entity_info_alter().
  */
-function dm_viewmodes_entity_info_alter(&$entity_info) {
+function dm_viewmodes_entity_info_alter(&$entity_info)
+{
     /*
     $entity_info['paragraphs']['view modes']['blogpost_full'] = array(
         'label' => t('Blogpost Full'),
