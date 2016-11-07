@@ -34,9 +34,17 @@ class UserProfile implements HookInterface
     {
         /* This is what we use in template to render*/
         $profile = &$vars["user_profile"];
-
+        
         /** @var \stdClass $user */
         $user = $vars["user"];
+        
+        /*
+         * We need to confront requested user with current user
+         * try http://dimagrimondo.it/user/jakabadambalazs when not logged in
+         */
+        
+        print_r($user);
+        
 
         /* Global user is missing custom fields so we need to load it explicitly */
         /** @var \stdClass $currUser */
