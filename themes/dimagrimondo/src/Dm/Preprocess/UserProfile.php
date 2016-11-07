@@ -12,46 +12,66 @@ use Mekit\Drupal7\HookInterface;
 
 class UserProfile implements HookInterface
 {
-    /** @var  boolean */
-    private static $isClient;
+    /** @var  \stdClass */
+    private static $currentUser;
+
+    /** @var  \stdClass */
+    private static $requestedUser;
+
 
     /**
      * @param array $vars
      */
     public static function execute(&$vars)
     {
-        self::setIsClient($vars);
+        self::setupUsers($vars);
+
         self::setThemeHookSuggestions($vars);
 
-        self::prepareContent($vars);
-        //dpm($vars, "UP");
+        if (self::isUserAClient(self::$requestedUser)) {
+            self::prepareContentClient($vars);
+        } else {
+            self::prepareContentCoach($vars);
+        }
+        //dpm(self::$currentUser, "CU");
+        //dpm(self::$requestedUser, "RU");
     }
 
     /**
      * @param array $vars
      */
-    private static function prepareContent(&$vars)
+    private static function prepareContentCoach(&$vars)
     {
         /* This is what we use in template to render*/
         $profile = &$vars["user_profile"];
-        
+
         /** @var \stdClass $user */
-        $user = $vars["user"];
-        
-        /*
-         * We need to confront requested user with current user
-         * try http://dimagrimondo.it/user/jakabadambalazs when not logged in
-         */
-        
-        //print_r($user);
-        
+        $user = self::$requestedUser;
 
-        /* Global user is missing custom fields so we need to load it explicitly */
-        /** @var \stdClass $currUser */
-        $currentUser = user_load($user->uid);
+        //add something like: my clients
+    }
 
 
-        $profile["messages"] = ['#markup' => 'Ciao ' . $user->name . ','];
+    /**
+     * @param array $vars
+     */
+    private static function prepareContentClient(&$vars)
+    {
+        /* This is what we use in template to render*/
+        $profile = &$vars["user_profile"];
+
+        /** @var \stdClass $user */
+        $user = self::$requestedUser;
+
+        if (self::areTheseUsersTheSame(self::$currentUser, self::$requestedUser)) {
+            $message = 'Ciao ' . $user->name . ',';
+        } else {
+            $message = 'Pagina profilo dell\'utente: ' . $user->name;
+        }
+
+        $profile["messages"] = [
+            '#markup' => $message,
+        ];
 
         $profile["user_resources"] = [
             $profile["videos"] = [
@@ -89,10 +109,6 @@ class UserProfile implements HookInterface
                 ],
             ],
         ];
-
-
-
-
     }
 
 
@@ -102,9 +118,7 @@ class UserProfile implements HookInterface
      */
     private static function setThemeHookSuggestions(&$vars)
     {
-        /** @var \stdClass $user */
-        $user = $vars["user"];
-        $orderedRoles = self::getOrderedRolesForUser($user);
+        $orderedRoles = self::getOrderedRolesForUser(self::$requestedUser);
 
         $vars['theme_hook_suggestions'] = [];
         foreach ($orderedRoles as $role) {
@@ -113,18 +127,23 @@ class UserProfile implements HookInterface
     }
 
     /**
-     * @param array $vars
+     * For now anyone who is not a coach(rid=4) is a client
+     *
+     * @param \stdClass $user1
+     * @param \stdClass $user2
+     * @return bool
      */
-    private static function setIsClient(&$vars)
+    private static function areTheseUsersTheSame($user1, $user2)
     {
-        /** @var \stdClass $user */
-        $user = $vars["user"];
-        self::$isClient = self::isUserAClient($user);
-        $vars["#is_client"] = self::$isClient;
+        return is_object($user1)
+        && is_object($user2)
+        && isset($user1->uid)
+        && isset($user2->uid)
+        && $user1->uid == $user2->uid;
     }
 
     /**
-     * For now anyone ho is not a coach(rid=4) is a client
+     * For now anyone who is not a coach(rid=4) is a client
      *
      * @param \stdClass $user
      * @return bool
@@ -154,5 +173,16 @@ class UserProfile implements HookInterface
             }
         }
         return $answer;
+    }
+
+    /**
+     * @param array $vars
+     */
+    private static function setupUsers(&$vars)
+    {
+        self::$currentUser = $vars["user"];
+        if (isset($vars['elements']['#account'])) {
+            self::$requestedUser = $vars['elements']['#account'];
+        }
     }
 }
