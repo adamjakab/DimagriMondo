@@ -43,7 +43,7 @@ class UserProfile implements HookInterface
          * try http://dimagrimondo.it/user/jakabadambalazs when not logged in
          */
         
-        print_r($user);
+        //print_r($user);
         
 
         /* Global user is missing custom fields so we need to load it explicitly */
