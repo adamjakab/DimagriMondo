@@ -44,7 +44,7 @@ class Node7 implements HookInterface
     private static function injectLatestArticlesView(&$vars)
     {
         if ($vars['view_mode'] == 'teaser') {
-            $res = ThemeHelper::getView('blog_latest_articles', 'block');
+            $res = ThemeHelper::getViewDisplayOutput('blog_latest_articles', 'block');
             if ($res) {
                 $vars["content"]["blog_articles"] = [
                     '#prefix' => '<div class="blog_articles">',

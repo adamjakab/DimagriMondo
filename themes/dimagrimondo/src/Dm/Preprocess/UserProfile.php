@@ -72,6 +72,11 @@ class UserProfile implements HookInterface
         $profile["messages"] = [
             '#markup' => $message,
         ];
+        
+        
+        //$displays = ThemeHelper::getViewOutputForAllDisplays('user_resources');
+        //dpm($displays, "DISPLAYS");
+        
 
         $profile["user_resources"] = [
             $profile["videos"] = [
@@ -88,7 +93,7 @@ class UserProfile implements HookInterface
                     '#markup' => 'Qualche video selezionato per te.'
                 ],
                 'content' => [
-                    '#markup' => ThemeHelper::getView('user_resources', 'block_video'),
+                    '#markup' => ThemeHelper::getViewDisplayOutput('user_resources', 'block_video'),
                 ],
             ],
             $profile["prices"] = [
@@ -105,7 +110,7 @@ class UserProfile implements HookInterface
                     '#markup' => 'Prezzi, durata e modalità di pagamento'
                 ],
                 'content' => [
-                    '#markup' => ThemeHelper::getView('user_resources', 'block_prices'),
+                    '#markup' => ThemeHelper::getViewDisplayOutput('user_resources', 'block_prices'),
                 ],
             ],
         ];
