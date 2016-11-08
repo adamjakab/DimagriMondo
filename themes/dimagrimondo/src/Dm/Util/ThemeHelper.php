@@ -16,6 +16,34 @@ class ThemeHelper
     {
         return drupal_get_path('theme', $GLOBALS['theme']);
     }
+    
+    /**
+     * @param string $view_name
+     * @param array  $args
+     *
+     * @return array
+     */
+    public static function getViewOutputForAllDisplays($view_name, array $args = [])
+    {
+        $answer = [];
+        $view = views_get_view($view_name);
+        if($view)
+        {
+            /**
+             * @var string $key
+             * @var \stdClass $display
+             */
+            foreach($view->display as $display_id => $display)
+            {
+                if($display->display_plugin != 'default')
+                {
+                    $display->output = $view->preview($display_id, $args);
+                    $answer[$display_id] = $display;
+                }
+            }
+        }
+        return $answer;
+    }
 
     /**
      * Gets a view by name and display
@@ -26,14 +54,12 @@ class ThemeHelper
      *
      * @return bool|string|void
      */
-    public static function getView($view_name, $view_display, array $args = [])
+    public static function getViewDisplayOutput($view_name, $view_display, array $args = [])
     {
         $answer = '';
         $funcArgs = array_merge([$view_name, $view_display], $args);
-        //$viewResults = views_get_view_result($view_name, $view_display);
         $viewResults = call_user_func_array('views_get_view_result', $funcArgs);
         if (count($viewResults)) {
-            //$answer = views_embed_view($view_name, $view_display);
             $answer = call_user_func_array('views_embed_view', $funcArgs);
         }
 
