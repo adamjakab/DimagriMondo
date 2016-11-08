@@ -72,48 +72,33 @@ class UserProfile implements HookInterface
         $profile["messages"] = [
             '#markup' => $message,
         ];
-        
-        
-        //$displays = ThemeHelper::getViewOutputForAllDisplays('user_resources');
-        //dpm($displays, "DISPLAYS");
-        
 
-        $profile["user_resources"] = [
-            $profile["videos"] = [
+
+        //render all displays of view "user_resources"
+        $displays = ThemeHelper::getViewOutputForAllDisplays('user_resources');
+        $profile["user_resources"] = [];
+
+        /** @var array $display */
+        foreach ($displays as $displayId => $display) {
+            $content = [
                 '#prefix' => '<div class="row suggested_videos"><div class="col-md-12">',
                 '#suffix' => '</div></div>',
                 'title' => [
                     '#prefix' => '<h3>',
                     '#suffix' => '</h3>',
-                    '#markup' => 'Video suggeriti'
+                    '#markup' => $display["title"],
                 ],
                 'description' => [
                     '#prefix' => '<p>',
                     '#suffix' => '</p>',
-                    '#markup' => 'Qualche video selezionato per te.'
+                    '#markup' => $display["description"],
                 ],
                 'content' => [
-                    '#markup' => ThemeHelper::getViewDisplayOutput('user_resources', 'block_video'),
+                    '#markup' => $display["output"],
                 ],
-            ],
-            $profile["prices"] = [
-                '#prefix' => '<div class="row suggested_videos"><div class="col-md-12">',
-                '#suffix' => '</div></div>',
-                'title' => [
-                    '#prefix' => '<h3>',
-                    '#suffix' => '</h3>',
-                    '#markup' => 'Prezzi pacchetti'
-                ],
-                'description' => [
-                    '#prefix' => '<p>',
-                    '#suffix' => '</p>',
-                    '#markup' => 'Prezzi, durata e modalità di pagamento'
-                ],
-                'content' => [
-                    '#markup' => ThemeHelper::getViewDisplayOutput('user_resources', 'block_prices'),
-                ],
-            ],
-        ];
+            ];
+            $profile["user_resources"][$displayId] = $content;
+        }
     }
 
 

@@ -33,15 +33,20 @@ class ThemeHelper
              * @var string $key
              * @var \stdClass $display
              */
-            foreach($view->display as $display_id => $display)
+            foreach ($view->display as $viewdisplay)
             {
-                if($display->display_plugin != 'default')
+                if ($viewdisplay->display_plugin != 'default')
                 {
-                    $display->output = $view->preview($display_id, $args);
-                    $answer[$display_id] = $display;
+                    $answer[$viewdisplay->id] = [
+                        "id" => $viewdisplay->id,
+                        "title" => $viewdisplay->display_title,
+                        "description" => $viewdisplay->display_options['display_description'],
+                        "output" => self::getViewDisplayOutput($view_name, $viewdisplay->id, $args),
+                    ];
                 }
             }
         }
+
         return $answer;
     }
 
