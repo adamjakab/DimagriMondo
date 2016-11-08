@@ -64,7 +64,7 @@ class Blogpost implements HookInterface
                             'value' => [
                                 '#prefix' => '<div class="field-item">',
                                 '#suffix' => '</div>',
-                                '#markup' => $user->name_field[LANGUAGE_NONE][0]['value'],
+                                '#markup' => l($user->name_field[LANGUAGE_NONE][0]['value'], 'user/' . $user->name, []),
                             ],
                         ],
                     ];
