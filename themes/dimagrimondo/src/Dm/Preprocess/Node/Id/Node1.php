@@ -12,7 +12,7 @@ namespace Dm\Preprocess\Node\Id;
 use Mekit\Drupal7\HookInterface;
 
 /**
- * Blog main page
+ * Contact page
  *
  * Class Node7
  * @package Dm\Preprocess\Node\Id

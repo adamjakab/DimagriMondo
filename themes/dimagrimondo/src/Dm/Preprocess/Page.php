@@ -7,9 +7,12 @@
 
 namespace Dm\Preprocess;
 
-
 use Mekit\Drupal7\HookInterface;
 
+/**
+ * Class Page
+ * @package Dm\Preprocess
+ */
 class Page implements HookInterface
 {
     /**

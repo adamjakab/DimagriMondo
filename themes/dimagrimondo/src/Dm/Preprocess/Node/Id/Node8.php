@@ -12,9 +12,9 @@ namespace Dm\Preprocess\Node\Id;
 use Mekit\Drupal7\HookInterface;
 
 /**
- * Chi Siamo
+ * Cosa offriamo
  *
- * Class Node7
+ * Class Node8
  * @package Dm\Preprocess\Node\Id
  */
 class Node8 implements HookInterface
@@ -24,7 +24,7 @@ class Node8 implements HookInterface
      */
     public static function execute(&$vars)
     {
-        self::injectFacebookPage($vars);
+        //self::injectFacebookPage($vars);
     }
 
 
