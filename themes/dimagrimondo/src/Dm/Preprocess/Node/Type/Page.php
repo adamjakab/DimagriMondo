@@ -48,8 +48,8 @@ class Page implements HookInterface
     private static function addClasses(&$vars)
     {
         if ($vars['view_mode'] == 'child') {
-            $vars['classes_array'][] = 'col-sm-6';
-            $vars['classes_array'][] = 'col-md-4';
+            $vars['classes_array'][] = 'col-sm-12';
+            $vars['classes_array'][] = 'col-md-6';
         }
     }
 

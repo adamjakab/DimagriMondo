@@ -21,12 +21,26 @@ class Front implements HookInterface
     public static function execute(&$vars)
     {
         self::removeNoContentMessage($vars);
+        
+        self::addBlockDimagrimondo($vars);
         self::addBlockPrograms($vars);
-        //self::addBlockTestimonials($vars);
-
         //dpm($vars, "FRONT VARS");
     }
-
+    
+    /**
+     * @param array $vars
+     */
+    private static function addBlockDimagrimondo(&$vars)
+    {
+        $nodeId = 8;
+        $node = node_load($nodeId);
+        $nodeView = node_view($node, "teaser");
+        $vars['page']['wide_bottom']['system_main']['dimagrimondo'] = [
+            '#prefix' => '<div class="container-fluid">',
+            '#suffix' => '</div>',
+            'node' => $nodeView,
+        ];
+    }
 
     /**
      * @param array $vars
@@ -36,25 +50,14 @@ class Front implements HookInterface
         $nodeId = 96;
         $node = node_load($nodeId);
         $nodeView = node_view($node, "teaser");
-        $vars['page']['content']['system_main']['programs'] = [
-            '#prefix' => '<div class="x container-fluid">',
+        $vars['page']['wide_bottom']['system_main']['programs'] = [
+            '#prefix' => '<div class="container-fluid">',
             '#suffix' => '</div>',
             'node' => $nodeView,
         ];
     }
 
-    /**
-     * @param array $vars
-     */
-    private static function addBlockTestimonials(&$vars)
-    {
-        $vars['page']['content']['system_main']['testimonials'] = [
-            '#prefix' => '<div class="y">',
-            '#suffix' => '</div>',
-            '#markup' => '<h1>Test</h1>',
-        ];
-    }
-
+    
     /**
      * @param array $vars
      */

@@ -24,7 +24,18 @@ class Node8 implements HookInterface
      */
     public static function execute(&$vars)
     {
+        self::addClasses($vars);
         //self::injectFacebookPage($vars);
+    }
+    
+    /**
+     * @param $vars
+     */
+    private static function addClasses(&$vars)
+    {
+        if ($vars['view_mode'] == 'teaser') {
+            $vars['classes_array'][] = 'fiicco';
+        }
     }
 
 
