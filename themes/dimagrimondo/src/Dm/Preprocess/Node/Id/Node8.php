@@ -25,16 +25,21 @@ class Node8 implements HookInterface
     public static function execute(&$vars)
     {
         self::addClasses($vars);
-        //self::injectFacebookPage($vars);
+        self::injectFrontPageConent($vars);
     }
-    
+
     /**
-     * @param $vars
+     * @param array $vars
      */
-    private static function addClasses(&$vars)
+    private static function injectFrontPageConent(&$vars)
     {
-        if ($vars['view_mode'] == 'teaser') {
-            $vars['classes_array'][] = 'fiicco';
+        if ($vars['is_front'] && $vars['view_mode'] == 'teaser') {
+            $vars['content']['heart'] = [
+                '#prefix' => '<div class="text-center">',
+                '#suffix' => '</div>',
+                '#markup' => '<i class="fa fa-heartbeat" aria-hidden="true"></i>',
+                '#weight' => 99,
+            ];
         }
     }
 
@@ -85,4 +90,15 @@ class Node8 implements HookInterface
             //dpm($vars["content"]);
         }
     }
+
+    /**
+     * @param $vars
+     */
+    private static function addClasses(&$vars)
+    {
+        if ($vars['view_mode'] == 'teaser') {
+            //$vars['classes_array'][] = 'node-8';
+        }
+    }
+
 }

@@ -1,0 +1,55 @@
+body.front {
+  .wrapper-bottom {
+    & > .row {
+      margin-bottom: 25px;
+    }
+    .container-fluid {
+      padding: 25px 0;
+
+      &.node-8 {
+        background: @gray-dark;
+        h2 a {
+          color: @gray-lighter;
+        }
+        .lead {
+          color: @gray-lighter;
+        }
+
+      }
+
+      h2 {
+        font-size: 30px;
+      }
+
+      i.fa {
+        font-size: 54px;
+        color: @jp-red;
+      }
+
+      .lead {
+        font-size: 18px;
+      }
+
+      .nhc-children {
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-top: 50px;
+        text-align: center;
+        .node {
+          min-height: 200px;
+          padding: 5px 20px;
+          .node-content {
+            h3 {
+              margin-top: 10px;
+            }
+            i.fa {
+              font-size: 40px;
+              margin: 0 10px;
+              color: @jp-red;
+            }
+          }
+        }
+      }
+    }
+  }
+}

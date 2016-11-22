@@ -28,16 +28,16 @@ class Page implements HookInterface
     {
         if (isset($vars['content']['field_title_emotional'][0]['#markup'])) {
             $text = $vars['content']['field_title_emotional'][0]['#markup'];
-            $color = '#000000';
-            if (isset($vars['field_color_1'][LANGUAGE_NONE][0]['rgb']) && !empty($vars['field_color_1'][LANGUAGE_NONE][0]['rgb'])) {
-                $color = $vars['field_color_1'][LANGUAGE_NONE][0]['rgb'];
+            if (!$vars['is_front']) {
+                $color = '#000000';
+                if (isset($vars['field_color_1'][LANGUAGE_NONE][0]['rgb']) && !empty($vars['field_color_1'][LANGUAGE_NONE][0]['rgb'])) {
+                    $color = $vars['field_color_1'][LANGUAGE_NONE][0]['rgb'];
+                }
+                $text = str_replace(['[', ']'], ['<span class="colored" style="color:' . $color . ';">', '</span>'], $text);
+            } else {
+                //remove only
+                $text = str_replace(['[', ']'], ['<span class="colored">', '</span>'], $text);
             }
-            /*
-            if ($vars['view_mode'] == 'teaser') {
-                $color = '#ffffff';
-            }
-            */
-            $text = str_replace(['[', ']'], ['<span class="colored" style="color:' . $color . ';">', '</span>'], $text);
             $vars['content']['field_title_emotional'][0]['#markup'] = $text;
         }
     }
@@ -50,6 +50,7 @@ class Page implements HookInterface
         if ($vars['view_mode'] == 'child') {
             $vars['classes_array'][] = 'col-sm-12';
             $vars['classes_array'][] = 'col-md-6';
+            $vars['classes_array'][] = 'col-lg-3';
         }
     }
 

@@ -36,7 +36,7 @@ class Front implements HookInterface
         $node = node_load($nodeId);
         $nodeView = node_view($node, "teaser");
         $vars['page']['wide_bottom']['system_main']['dimagrimondo'] = [
-            '#prefix' => '<div class="container-fluid">',
+            '#prefix' => '<div class="container-fluid node-8">',
             '#suffix' => '</div>',
             'node' => $nodeView,
         ];
@@ -51,7 +51,7 @@ class Front implements HookInterface
         $node = node_load($nodeId);
         $nodeView = node_view($node, "teaser");
         $vars['page']['wide_bottom']['system_main']['programs'] = [
-            '#prefix' => '<div class="container-fluid">',
+            '#prefix' => '<div class="container-fluid node-96">',
             '#suffix' => '</div>',
             'node' => $nodeView,
         ];
