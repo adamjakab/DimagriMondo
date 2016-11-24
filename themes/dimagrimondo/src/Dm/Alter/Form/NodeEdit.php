@@ -7,7 +7,6 @@
 
 namespace Dm\Alter\Form;
 
-
 use Mekit\Drupal7\HookInterface;
 
 /**

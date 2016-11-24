@@ -8,8 +8,13 @@
 namespace Dm\Preprocess;
 
 use Dm\Util\ThemeHelper;
+use Dm\Util\UserHelper;
 use Mekit\Drupal7\HookInterface;
 
+/**
+ * Class UserProfile
+ * @package Dm\Preprocess
+ */
 class UserProfile implements HookInterface
 {
     /** @var  \stdClass */
@@ -28,7 +33,7 @@ class UserProfile implements HookInterface
 
         self::setThemeHookSuggestions($vars);
 
-        if (self::isUserAClient(self::$requestedUser)) {
+        if (UserHelper::isUserAClient(self::$requestedUser)) {
             self::prepareContentClient($vars);
         } else {
             self::prepareContentCoach($vars);
@@ -63,7 +68,7 @@ class UserProfile implements HookInterface
         /** @var \stdClass $user */
         $user = self::$requestedUser;
 
-        if (self::areTheseUsersTheSame(self::$currentUser, self::$requestedUser)) {
+        if (UserHelper::areTheseUsersTheSame(self::$currentUser, self::$requestedUser)) {
             $message = 'Ciao ' . $user->name . ',';
         } else {
             $message = 'Pagina profilo dell\'utente: ' . $user->name;
@@ -108,61 +113,12 @@ class UserProfile implements HookInterface
      */
     private static function setThemeHookSuggestions(&$vars)
     {
-        $orderedRoles = self::getOrderedRolesForUser(self::$requestedUser);
+        $orderedRoles = UserHelper::getOrderedRolesForUser(self::$requestedUser);
 
         $vars['theme_hook_suggestions'] = [];
         foreach ($orderedRoles as $role) {
             $vars['theme_hook_suggestions'][] = 'user_profile__role_' . $role;
         }
-    }
-
-    /**
-     * For now anyone who is not a coach(rid=4) is a client
-     *
-     * @param \stdClass $user1
-     * @param \stdClass $user2
-     * @return bool
-     */
-    private static function areTheseUsersTheSame($user1, $user2)
-    {
-        return is_object($user1)
-        && is_object($user2)
-        && isset($user1->uid)
-        && isset($user2->uid)
-        && $user1->uid == $user2->uid;
-    }
-
-    /**
-     * For now anyone who is not a coach(rid=4) is a client
-     *
-     * @param \stdClass $user
-     * @return bool
-     */
-    private static function isUserAClient($user)
-    {
-        $orderedRoles = self::getOrderedRolesForUser($user);
-        if (!in_array(4, $orderedRoles)) {
-            $answer = true;
-        } else {
-            $answer = false;
-        }
-        return $answer;
-    }
-
-    /**
-     * @param \stdClass $user
-     * @return array
-     */
-    private static function getOrderedRolesForUser($user)
-    {
-        $answer = [];
-        $roles = user_roles(true);
-        foreach ($roles as $rid => $roleName) {
-            if (user_has_role($rid, $user)) {
-                $answer[] = $rid;
-            }
-        }
-        return $answer;
     }
 
     /**
