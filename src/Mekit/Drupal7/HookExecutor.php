@@ -104,7 +104,7 @@ class HookExecutor
             if ($type == 'paragraphs_item') {
                 if (isset($arguments[0]['elements']['#bundle'])) {
                     $bundle = $arguments[0]['elements']['#bundle'];
-                    $hookNamePartsBundle = array_merge($hookNameParts, ['paragraphs', 'bundle', $bundle]);
+                    $hookNamePartsBundle = array_merge($hookNameParts, ['paragraphs_item', 'bundle', $bundle]);
                     HookExecutor::executeGenericHook($hookNamePartsBundle, $arguments, true);
                 }
             }

@@ -36,7 +36,7 @@ class Node97 implements HookInterface
             $vars['content']['heart'] = [
                 '#prefix' => '<div class="text-center">',
                 '#suffix' => '</div>',
-                '#markup' => '<i class="fa fa-apple" aria-hidden="true"></i>',
+                '#markup' => '<i class="fa fa-heartbeat" aria-hidden="true"></i>',
                 '#weight' => -99,
             ];
         }

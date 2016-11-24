@@ -28,7 +28,8 @@ class Page implements HookInterface
     {
         if (isset($vars['content']['field_title_emotional'][0]['#markup'])) {
             $text = $vars['content']['field_title_emotional'][0]['#markup'];
-            if (!$vars['is_front']) {
+            $noColoring = false; //$vars['is_front']
+            if (!$noColoring) {
                 $color = '#000000';
                 if (isset($vars['field_color_1'][LANGUAGE_NONE][0]['rgb']) && !empty($vars['field_color_1'][LANGUAGE_NONE][0]['rgb'])) {
                     $color = $vars['field_color_1'][LANGUAGE_NONE][0]['rgb'];

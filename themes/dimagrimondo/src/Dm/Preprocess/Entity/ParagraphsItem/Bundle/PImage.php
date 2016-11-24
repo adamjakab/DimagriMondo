@@ -6,11 +6,14 @@
  * Time: 18:03
  */
 
-namespace Dm\Preprocess\Entity\Type\ParagraphsItem\Bundle;
-
+namespace Dm\Preprocess\Entity\ParagraphsItem\Bundle;
 
 use Mekit\Drupal7\HookInterface;
 
+/**
+ * Class PImage
+ * @package Dm\Preprocess\Entity\ParagraphsItem\Bundle
+ */
 class PImage implements HookInterface
 {
     /**
@@ -37,11 +40,11 @@ class PImage implements HookInterface
     {
         /** @var \stdClass $entity */
         $entity = isset($vars['elements']['#entity']) ? $vars['elements']['#entity'] : false;
-        if (!isset($entity->field_alignment['und'][0]['value'])) {
+        if (!isset($entity->field_alignment[LANGUAGE_NONE][0]['value'])) {
             return;
         }
 
-        $alignmentKey = $entity->field_alignment['und'][0]['value'];
+        $alignmentKey = $entity->field_alignment[LANGUAGE_NONE][0]['value'];
 
         $parts = explode("_", $alignmentKey);
         if (!is_array($parts) || count($parts) != 2) {
@@ -83,11 +86,6 @@ class PImage implements HookInterface
     {
         $bundle = $vars['elements']['#bundle'];
         $viewmode = $vars['elements']['#view_mode'];
-
-        $vars['theme_hook_suggestions'] = [];
-        $vars['theme_hook_suggestions'][] = 'paragraphs_item';
-        $vars['theme_hook_suggestions'][] = 'paragraphs_item__' . $bundle;
-        $vars['theme_hook_suggestions'][] = 'paragraphs_item__' . $bundle . '__' . $viewmode;
 
         if (isset($vars["image--align"]) && isset($vars["image--display"])) {
             $vars['theme_hook_suggestions'][] = 'paragraphs_item__' . $bundle . '__' . $viewmode . '__' . $vars["image--align"] . '__' . $vars["image--display"];

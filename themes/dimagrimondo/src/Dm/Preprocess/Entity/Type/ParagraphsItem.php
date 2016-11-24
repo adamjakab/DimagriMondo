@@ -18,6 +18,22 @@ class ParagraphsItem implements HookInterface
      */
     public static function execute(&$vars)
     {
+        self::setThemeHookSuggestions($vars);
         //dpm($vars['elements'], "PARAGRAPHS ITEM");
+    }
+
+
+    /**
+     * @param $vars
+     */
+    private static function setThemeHookSuggestions(&$vars)
+    {
+        $bundle = $vars['elements']['#bundle'];
+        $viewmode = $vars['elements']['#view_mode'];
+
+        $vars['theme_hook_suggestions'] = [];
+        $vars['theme_hook_suggestions'][] = 'paragraphs_item';
+        $vars['theme_hook_suggestions'][] = 'paragraphs_item__' . $bundle;
+        $vars['theme_hook_suggestions'][] = 'paragraphs_item__' . $bundle . '__' . $viewmode;
     }
 }

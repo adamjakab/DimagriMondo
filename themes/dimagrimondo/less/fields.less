@@ -1,0 +1,100 @@
+//entity entity-paragraphs-item paragraphs-item-p-icon-text
+.paragraphs-items-full {
+  text-align: center;
+}
+
+.entity-paragraphs-item {
+  &.paragraphs-item-p-icon-text {
+    display: inline-block;
+    /*border: 1px dashed @jp-brown-light;*/
+    width: 240px;
+    height: 240px;
+    padding: 10px;
+    margin: 10px;
+
+    /* ICON COLORS */
+    &.color_1 .field-type-icon-field {
+      color: @gray-lighter;
+    }
+    &.color_2 .field-type-icon-field {
+      color: black;
+    }
+    &.color_3 .field-type-icon-field {
+      color: @jp-red;
+    }
+    &.color_4 .field-type-icon-field {
+      color: @jp-green;
+    }
+    &.color_5 .field-type-icon-field {
+      color: @jp-violet;
+    }
+    &.color_6 .field-type-icon-field {
+      color: @jp-orange;
+    }
+    &.color_7 .field-type-icon-field {
+      color: @jp-brown-dark;
+    }
+    &.color_8 .field-type-icon-field {
+      color: @jp-brown-light;
+    }
+
+    .field-type-icon-field {
+      color: black;
+      width: 125px;
+      height: 125px;
+      line-height: 180px;
+      text-align: center;
+      vertical-align: middle;
+      margin: 0 auto;
+      i.fa {
+        font-size: 80px;
+      }
+    }
+
+    &.draw-circle {
+      .field-type-icon-field {
+        background: black;
+        color: white;
+        border-radius: 50%;
+        line-height: 150px;
+        i.fa {
+          font-size: 50px;
+        }
+      }
+      /* CIRCLE COLORS */
+      &.color_1 .field-type-icon-field {
+        background: @gray-lighter;
+      }
+      &.color_2 .field-type-icon-field {
+        background: black;
+      }
+      &.color_3 .field-type-icon-field {
+        background: @jp-red;
+      }
+      &.color_4 .field-type-icon-field {
+        background: @jp-green;
+      }
+      &.color_5 .field-type-icon-field {
+        background: @jp-violet;
+      }
+      &.color_6 .field-type-icon-field {
+        background: @jp-orange;
+      }
+      &.color_7 .field-type-icon-field {
+        background: @jp-brown-dark;
+      }
+      &.color_8 .field-type-icon-field {
+        background: @jp-brown-light;
+      }
+    }
+
+    .field-type-text {
+      font-size: 18px;
+      font-weight: 500;
+      text-transform: uppercase;
+      display: inline-flex;
+      margin-top: 15px;
+    }
+  }
+}
+

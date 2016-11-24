@@ -36,7 +36,7 @@ class Node98 implements HookInterface
             $vars['content']['heart'] = [
                 '#prefix' => '<div class="text-center">',
                 '#suffix' => '</div>',
-                '#markup' => str_repeat('<i class="fa fa-apple" aria-hidden="true"></i>', 2),
+                '#markup' => str_repeat('<i class="fa fa-heartbeat" aria-hidden="true"></i>', 2),
                 '#weight' => -99,
             ];
         }
