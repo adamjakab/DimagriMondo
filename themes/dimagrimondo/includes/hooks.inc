@@ -72,7 +72,7 @@ function dimagrimondo_preprocess_entity(&$vars)
  */
 function dimagrimondo_preprocess_user_profile(&$vars)
 {
-    HookExecutor::executeGenericHook(['preprocess', 'user_profile'], [&$vars]);
+    HookExecutor::executeUserProfileHooks(['preprocess', 'user_profile'], [&$vars]);
 }
 
 /**

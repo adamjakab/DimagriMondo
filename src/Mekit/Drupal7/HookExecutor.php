@@ -7,6 +7,7 @@
 
 namespace Mekit\Drupal7;
 
+use Dm\Util\UserHelper;
 use Mekit\Drupal7\Exception\HookException;
 use Stringy\StaticStringy as S;
 
@@ -109,6 +110,29 @@ class HookExecutor
                 }
             }
         }
+    }
+
+    /**
+     * Executes a specific role and 'self' based hook on User Profile
+     *
+     * @param array $hookNameParts
+     * @param array $arguments
+     *
+     * @throws HookException
+     */
+    public static function executeUserProfileHooks(array $hookNameParts, array $arguments = [])
+    {
+        $currentUser = $arguments[0]["user"];
+        $requestedUser = $arguments[0]['elements']['#account'];
+
+        /* Is user looking at his own profile? */
+        $self = UserHelper::areTheseUsersTheSame($currentUser, $requestedUser) ? 'self' : 'public';
+
+        /* Requested user is a client or a coach? */
+        $roleName = UserHelper::isClientUser($requestedUser) ? 'client' : 'coach';
+
+        $hookNamePartsRoleSelf = array_merge($hookNameParts, [$roleName . '_' . $self]);
+        HookExecutor::executeGenericHook($hookNamePartsRoleSelf, $arguments);
     }
 
     /**

@@ -24,7 +24,8 @@ class UserProfileForm implements HookInterface
     public static function execute(&$form, $form_state)
     {
         self::limitAccess($form);
-        dpm($form);
+
+        dpm($form, "USER-PROFILE-FORM");
     }
 
 
