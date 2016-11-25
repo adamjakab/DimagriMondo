@@ -29,6 +29,8 @@ class UserHelper
     }
 
     /**
+     * Roles are ordered by weight as they are in BO
+     *
      * @param \stdClass $user
      * @return array
      */
@@ -45,20 +47,23 @@ class UserHelper
     }
 
     /**
-     * For now anyone who is not a coach(rid=4) is a client
+     * @param \stdClass $user
+     * @return bool
+     */
+    public static function isCoachUser($user)
+    {
+        return in_array(self::USER_ROLE_COACH, self::getOrderedRolesForUser($user));
+    }
+
+    /**
+     * Anyone who is registered and is not a coach  is a client
      *
      * @param \stdClass $user
      * @return bool
      */
-    public static function isUserAClient($user)
+    public static function isClientUser($user)
     {
-        $orderedRoles = self::getOrderedRolesForUser($user);
-        if (!in_array(self::USER_ROLE_COACH, $orderedRoles)) {
-            $answer = true;
-        } else {
-            $answer = false;
-        }
-        return $answer;
+        return in_array(self::USER_ROLE_REGISTERED, self::getOrderedRolesForUser($user)) && !self::isCoachUser($user);
     }
 
     /**

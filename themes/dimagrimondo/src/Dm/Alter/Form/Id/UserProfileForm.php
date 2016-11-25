@@ -33,8 +33,10 @@ class UserProfileForm implements HookInterface
      */
     private static function limitAccess(&$form)
     {
-        if (UserHelper::isUserAClient(UserHelper::getCurrentUser())) {
+        if (UserHelper::isClientUser(UserHelper::getCurrentUser())) {
             $form['field_social_links']['#access'] = false;
+            $form['description_field']['#access'] = false;
+            $form['field_coach']['#access'] = false;
         }
     }
 }

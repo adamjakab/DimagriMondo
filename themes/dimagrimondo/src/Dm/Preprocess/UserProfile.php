@@ -33,7 +33,7 @@ class UserProfile implements HookInterface
 
         self::setThemeHookSuggestions($vars);
 
-        if (UserHelper::isUserAClient(self::$requestedUser)) {
+        if (UserHelper::isClientUser(self::$requestedUser)) {
             self::prepareContentClient($vars);
         } else {
             self::prepareContentCoach($vars);
