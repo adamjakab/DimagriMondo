@@ -4,7 +4,7 @@ body.page-user {
 
     .field-name-field-single-image-private {
       img {
-        width: 110px;
+        width: 220px;
         display: inline-block;
         border-radius: 50%;
         -webkit-border-radius: 50%;
@@ -15,16 +15,6 @@ body.page-user {
       }
     }
 
-    &.coach {
-      .field-name-field-single-image-private {
-        img {
-          width: 220px;
-        }
-      }
-    }
-
-
-
     .field-name-name-field {
       h1 {
         margin-bottom: 3px;
@@ -34,9 +24,68 @@ body.page-user {
     .group-profile-info {
       padding: 25px 0;
     }
+
     .group-links {
       text-align: center;
     }
+
+    /* profile SELF (person viewing own profile)*/
+    &.self {
+
+      .group-profile-info.well {
+        margin-bottom: 0;
+        border-radius: 10px;
+        position: relative;
+
+        .edit-profile {
+          position: absolute;
+          right: 15px;
+          top: 13px;
+          a {
+            font-size: 20px;
+            .fa {
+              color: @gray-light;
+            }
+            &:hover .fa {
+              color: @gray;
+            }
+          }
+        }
+      }
+
+      /* your coach/upline*/
+      .profile.coach {
+        margin-top: 10px;
+        background: @gray-lightest;
+        border-radius: 10px;
+
+        .group-profile-info.well {
+          padding: 0;
+          text-align: center;
+          background: none;
+          h3 {
+            margin: 0;
+            a {
+              background: @gray-lighter;
+              color: @jp-red;
+              display: block;
+              padding: 5px;
+              border-radius: 10px;
+              font-weight: normal;
+            }
+          }
+          .field-group-format-wrapper {
+            padding: 20px 0;
+          }
+        }
+        .field-name-field-single-image-private {
+          img {
+            width: 110px;
+          }
+        }
+      }
+    }
+
   }
 
   /* SOCIALFIELD OVERRIDES */

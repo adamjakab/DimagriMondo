@@ -39,10 +39,16 @@ class CoachSelf extends UserProfile
         /* This is what we use in template to render*/
         $profile = &$vars["user_profile"];
 
-        /** @var \stdClass $user */
-        $user = self::$requestedUser;
+        //Profile edit link
+        $profile["group_profile_info"]["edit_link"] = self::getProfileEditLink();
 
-        //add something like: my clients
+        //UPLINE
+        $profile["coach_info"] = self::getUsersCoachView();
+        $profile["coach_info"]['#groups']['group_profile_info']->label = 'La tua upline';
+
+
+
+
     }
 
 }

@@ -39,25 +39,20 @@ class ClientSelf extends UserProfile
         /* This is what we use in template to render*/
         $profile = &$vars["user_profile"];
 
-        /** @var \stdClass $user */
-        $user = self::$requestedUser;
+        //Profile edit link
+        $profile["group_profile_info"]["edit_link"] = self::getProfileEditLink();
 
-        if (UserHelper::areTheseUsersTheSame(self::$currentUser, self::$requestedUser)) {
-            $message = 'Ciao ' . $user->name . ',';
-        } else {
-            $message = 'Pagina profilo dell\'utente: ' . $user->name;
-        }
-
-        $profile["messages"] = [
-            '#markup' => $message,
-        ];
+        //UPLINE
+        $profile["coach_info"] = self::getUsersCoachView();
+        $profile["coach_info"]['#groups']['group_profile_info']->label = 'Il tuo coach';
 
 
+        /*
         //render all displays of view "user_resources"
         $displays = ThemeHelper::getViewOutputForAllDisplays('user_resources');
         $profile["user_resources"] = [];
 
-        /** @var array $display */
+        /** @var array $display * /
         foreach ($displays as $displayId => $display) {
             $content = [
                 '#prefix' => '<div class="row suggested_videos"><div class="col-md-12">',
@@ -78,6 +73,7 @@ class ClientSelf extends UserProfile
             ];
             $profile["user_resources"][$displayId] = $content;
         }
+        */
     }
 
 }

@@ -25,7 +25,7 @@ class UserProfileForm implements HookInterface
     {
         self::limitAccess($form);
 
-        dpm($form, "USER-PROFILE-FORM");
+        //dpm($form, "USER-PROFILE-FORM");
     }
 
 

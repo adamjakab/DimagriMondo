@@ -35,6 +35,41 @@ class UserProfile implements HookInterface
     }
 
     /**
+     * @return array
+     */
+    protected static function getProfileEditLink()
+    {
+        $editLink = url('user/' . self::$currentUser->uid . '/edit', []);
+        return [
+            '#prefix' => '<div class="edit-profile">',
+            '#suffix' => '</div>',
+            'link' => [
+                '#prefix' => '<a href="' . $editLink . '" title="Modifica profilo">',
+                '#suffix' => '</a>',
+                '#markup' => '<i class="fa fa-pencil fa-2" aria-hidden="true"></i>',
+            ],
+        ];
+    }
+
+    /**
+     * extract coach/upline id - load - get view - return
+     *
+     * @return array
+     */
+    protected static function getUsersCoachView()
+    {
+        $answer = [];
+
+        if (isset(self::$requestedUser->field_coach[LANGUAGE_NONE][0]['target_id'])) {
+            $uplineId = self::$requestedUser->field_coach[LANGUAGE_NONE][0]['target_id'];
+            $upline = user_load($uplineId);
+            $answer = user_view($upline, 'teaser');
+        }
+
+        return $answer;
+    }
+
+    /**
      * @param array $vars
      */
     private static function setThemeHookSuggestions(&$vars)

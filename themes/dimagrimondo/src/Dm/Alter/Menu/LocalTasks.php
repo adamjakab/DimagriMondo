@@ -20,6 +20,19 @@ class LocalTasks implements HookInterface
     {
         self::blogPostAddButton($data);
         self::ensureCorrectTabsCount($data);
+        self::disableTabsOnUserProfilePage($data, $router_item);
+
+        //dpm($data, "LOCAL-TASKS DATA:");
+        //dpm($router_item, "LOCAL-TASKS RI:");
+    }
+
+
+    private static function disableTabsOnUserProfilePage(&$data, $router_item)
+    {
+        if ($router_item['path'] == 'user/%') {
+            //we are on user profile page - kill all tabs
+            $data["tabs"] = [];
+        }
     }
 
     /**
