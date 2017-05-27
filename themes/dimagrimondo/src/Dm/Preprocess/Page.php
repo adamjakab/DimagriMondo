@@ -21,8 +21,6 @@ class Page implements HookInterface
     public static function execute(&$vars)
     {
         self::selectMenuForSecondaryNavigation($vars);
-        self::setUpBreadcrumbs($vars);
-        self::fixActiveBlogMenuItem($vars);
         //dpm($vars, "PAGE VARS");
     }
 
@@ -42,6 +40,7 @@ class Page implements HookInterface
     }
 
     /**
+     * Unused - keeping it for future reference
      * @param array $vars
      */
     private static function setUpBreadcrumbs(&$vars)
@@ -60,17 +59,4 @@ class Page implements HookInterface
         drupal_set_breadcrumb($BC);
     }
 
-    /**
-     * Any blogpost type node must be under "blog" menu item
-     * @param array $vars
-     */
-    private static function fixActiveBlogMenuItem(&$vars)
-    {
-        $blogMenuItemId = 558;
-        if (isset($vars["node"]) && isset($vars["node"]->type) && $vars["node"]->type == "blogpost") {
-            //this makes changes to node-type-(type) body class - NO GOOD (find another way)
-            //menu_set_active_item($vars['primary_nav'][$blogMenuItemId]['#href']);
-
-        }
-    }
 }

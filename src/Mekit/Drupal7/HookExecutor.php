@@ -126,7 +126,7 @@ class HookExecutor
         $requestedUser = $arguments[0]['elements']['#account'];
 
         /* Is user looking at his own profile? */
-        $self = UserHelper::areTheseUsersTheSame($currentUser, $requestedUser) ? 'self' : 'public';
+        $self = UserHelper::areTheseUsersTheSame($currentUser,  $requestedUser) ? 'self' : 'public';
 
         /* Requested user is a client or a coach? */
         $roleName = UserHelper::isClientUser($requestedUser) ? 'client' : 'coach';

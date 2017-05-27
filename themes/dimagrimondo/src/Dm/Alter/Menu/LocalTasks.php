@@ -18,7 +18,7 @@ class LocalTasks implements HookInterface
      */
     public static function execute(&$data, $router_item, $root_path)
     {
-        self::blogPostAddButton($data);
+        //self::blogPostAddButton($data);
         self::ensureCorrectTabsCount($data);
         self::disableTabsOnUserProfilePage($data, $router_item);
 
@@ -26,17 +26,22 @@ class LocalTasks implements HookInterface
         //dpm($router_item, "LOCAL-TASKS RI:");
     }
 
-
+    /**
+     *  If we are on user profile page - remove all tabs
+     *
+     * @param array $data
+     * @param array $router_item
+     */
     private static function disableTabsOnUserProfilePage(&$data, $router_item)
     {
         if ($router_item['path'] == 'user/%') {
-            //we are on user profile page - kill all tabs
             $data["tabs"] = [];
         }
     }
 
     /**
-     * must be set to correct count otherwise buttons don't show up
+     * Must be set to correct count otherwise buttons don't show up
+     *
      * @param array $data
      */
     private static function ensureCorrectTabsCount(&$data)
@@ -47,6 +52,8 @@ class LocalTasks implements HookInterface
     }
 
     /**
+     * Now blogpost is a proper NHC so we don't need this - keeping in for future reference
+     *
      * @param array $data
      */
     private static function blogPostAddButton(&$data)
