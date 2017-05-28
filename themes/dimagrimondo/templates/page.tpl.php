@@ -4,6 +4,11 @@
  * page.tpl.php
  */
 ?>
+<?php if ($messages) : ?>
+    <div class="messages">
+        <?php print $messages; ?>
+    </div>
+<?php endif; ?>
 
 <header id="navbar" role="banner" class="<?php print $navbar_classes; ?>">
     <div class="container">
@@ -70,12 +75,6 @@
     <div class="main-container container">
         <?php if (!empty($breadcrumb)): print $breadcrumb; endif; ?>
         <a id="main-content"></a>
-
-        <?php if ($messages) : ?>
-            <div class="messages">
-                <?php print $messages; ?>
-            </div>
-        <?php endif; ?>
 
         <?php if (!empty($tabs)): ?>
             <?php print render($tabs); ?>

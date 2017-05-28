@@ -7,6 +7,7 @@
 
 namespace Dm\Preprocess;
 
+use Dm\Util\ThemeHelper;
 use Mekit\Drupal7\HookInterface;
 
 /**
@@ -21,7 +22,8 @@ class Page implements HookInterface
     public static function execute(&$vars)
     {
         self::selectMenuForSecondaryNavigation($vars);
-        //dpm($vars, "PAGE VARS");
+        self::setThemeHookSuggestions($vars);
+        //krumo($vars);
     }
 
 
@@ -57,6 +59,23 @@ class Page implements HookInterface
 
         //dpm($BC);
         drupal_set_breadcrumb($BC);
+    }
+
+    /**
+     * @param array $vars
+     */
+    private static function setThemeHookSuggestions(&$vars)
+    {
+        $nodeType = false;
+        if (isset($vars["node"]->type)) {
+            $nodeType = $vars["node"]->type;
+        }
+        $vars['theme_hook_suggestions'] = [];
+        $vars['theme_hook_suggestions'][] = 'page__node';
+        $vars['theme_hook_suggestions'][] = 'page__node__%';
+        if ($nodeType) {
+            $vars['theme_hook_suggestions'][] = 'page__node__' . $nodeType;
+        }
     }
 
 }
