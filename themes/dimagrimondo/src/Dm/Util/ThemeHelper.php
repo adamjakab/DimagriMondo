@@ -9,12 +9,28 @@ namespace Dm\Util;
 
 class ThemeHelper
 {
+
     /**
-     * @return string
+     * This is a special method for vars passed from html preprocess hook
+     * @param $vars
+     * @return bool|string
      */
-    public static function getCurrentThemePath()
+    public static function getNodeTypeFromHtmlVars($vars)
     {
-        return drupal_get_path('theme', $GLOBALS['theme']);
+        $answer = false;
+        if(isset($vars['page']['content']['system_main']['nodes']))
+        {
+            $nodes = $vars['page']['content']['system_main']['nodes'];
+            foreach($nodes as $node)
+            {
+                if(is_array($node) && isset($node["#bundle"]))
+                {
+                    $answer = $node["#bundle"];
+                }
+            }
+        }
+
+        return $answer;
     }
     
     /**
@@ -57,7 +73,7 @@ class ThemeHelper
      * @param string $view_display
      * @param array $args
      *
-     * @return bool|string|void
+     * @return bool|string
      */
     public static function getViewDisplayOutput($view_name, $view_display, array $args = [])
     {
@@ -69,6 +85,14 @@ class ThemeHelper
         }
 
         return $answer;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getCurrentThemePath()
+    {
+        return drupal_get_path('theme', $GLOBALS['theme']);
     }
 
     /**

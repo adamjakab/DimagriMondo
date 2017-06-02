@@ -8,6 +8,7 @@
 namespace Dm\Preprocess;
 
 
+use Dm\Util\ThemeHelper;
 use Mekit\Drupal7\HookInterface;
 
 class Html implements HookInterface
@@ -18,6 +19,9 @@ class Html implements HookInterface
     public static function execute(&$vars)
     {
         self::addGoogleFonts();
+        self::setThemeHookSuggestions($vars);
+
+        //krumo($vars);
     }
 
 
@@ -31,5 +35,18 @@ class Html implements HookInterface
         foreach ($fonts as $key => $css) {
             drupal_add_css($css, array('type' => 'external'));
         }
+    }
+
+    /**
+     * @param array $vars
+     */
+    private static function setThemeHookSuggestions(&$vars)
+    {
+        $nodeType = ThemeHelper::getNodeTypeFromHtmlVars($vars);
+
+        if ($nodeType) {
+            $vars['theme_hook_suggestions'][] = 'html__node__' . $nodeType;
+        }
+
     }
 }
