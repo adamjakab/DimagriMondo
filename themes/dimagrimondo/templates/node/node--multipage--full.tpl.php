@@ -17,6 +17,8 @@
 <?php
 hide($content['links']);
 hide($content['comments']);
+hide($content['field_single_image']);
+
 ?>
 
 <div class="wrapper-content">
@@ -24,14 +26,15 @@ hide($content['comments']);
         <a id="main-content"></a>
         <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
 
-            <?php print render($title_prefix); ?>
-            <?php print render($content["title_field"]); ?>
-            <?php print render($title_suffix); ?>
-
             <div class="node-content"<?php print $content_attributes; ?>>
-                <?php print render($content); ?>
-            </div>
 
+                <?php print render($content["field_paragraphs_pages"]); ?>
+
+                <?php print render($title_prefix); ?>
+                <?php print render($content["title_field"]); ?>
+                <?php print render($title_suffix); ?>
+
+            </div>
         </div>
     </div>
 </div>

@@ -10,12 +10,29 @@ namespace Dm\Util;
 class ThemeHelper
 {
 
+
     /**
      * This is a special method for vars passed from html preprocess hook
      * @param $vars
      * @return bool|string
      */
     public static function getNodeTypeFromHtmlVars($vars)
+    {
+        $answer = false;
+        if($node = self::getNodeFromHtmlVars($vars))
+        {
+            $answer = $node["#bundle"];
+        }
+
+        return $answer;
+    }
+
+    /**
+     * This is a special method for vars passed from html preprocess hook
+     * @param $vars
+     * @return bool|array
+     */
+    public static function getNodeFromHtmlVars($vars)
     {
         $answer = false;
         if(isset($vars['page']['content']['system_main']['nodes']))
@@ -25,14 +42,14 @@ class ThemeHelper
             {
                 if(is_array($node) && isset($node["#bundle"]))
                 {
-                    $answer = $node["#bundle"];
+                    $answer = $node;
                 }
             }
         }
 
         return $answer;
     }
-    
+
     /**
      * @param string $view_name
      * @param array  $args
